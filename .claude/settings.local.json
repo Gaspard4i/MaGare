@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(printf y\\\\n:*)",
+      "Bash(yes:*)",
+      "Bash(npm:*)",
+      "Bash(FORCE_COLOR=0 node:*)",
+      "Read(//tmp/vite-jEXmFP/**)",
+      "Read(//c/Users/GASPAR~1/AppData/Local/Temp/vite-jEXmFP/myapp/**)",
+      "Bash(cp:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npx vite:*)",
+      "WebFetch(domain:www.ter.sncf.com)",
+      "Bash(node:*)",
+      "WebFetch(domain:ripen-polka-32680275.figma.site)"
+    ]
+  }
+}

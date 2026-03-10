@@ -6,7 +6,6 @@ import BottomNav from './organisms/BottomNav'
 import BoardPage    from './pages/BoardPage'
 import BulletinPage from './pages/BulletinPage'
 import FavoritesPage from './pages/FavoritesPage'
-import StationPage   from './pages/StationPage'
 import SettingsPage  from './pages/SettingsPage'
 import { getDefaultStation, getTheme } from './services/storageService'
 import type { Place, TabId } from './types'
@@ -14,7 +13,6 @@ import type { BoardMode } from './utils/modeColors'
 
 const TAB_PATHS: Record<TabId, string> = {
   timetables: '/horaires',
-  station:    '/en-gare',
   bulletin:   '/bulletin',
   favorites:  '/favoris',
   settings:   '/reglages',
@@ -71,7 +69,6 @@ function AppShell() {
               onBoardModeChange={setBoardMode}
             />
           } />
-          <Route path="/en-gare"  element={<StationPage station={station} />} />
           <Route path="/bulletin" element={<BulletinPage />} />
           <Route path="/favoris"  element={<FavoritesPage onSelect={setStation} onTabChange={setTab} />} />
           <Route path="/reglages" element={<SettingsPage />} />

@@ -92,7 +92,7 @@ export interface VehicleJourney {
 
 // ── App state ─────────────────────────────────────────────────────────────────
 
-export type TabId = 'timetables' | 'station' | 'bulletin' | 'favorites' | 'settings'
+export type TabId = 'timetables' | 'bulletin' | 'favorites' | 'settings'
 export type BoardMode = 'departures' | 'arrivals'
 
 export type TransportMode =

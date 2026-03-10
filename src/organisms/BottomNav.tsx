@@ -1,12 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faBuilding, faFileAlt, faHeart, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faFileAlt, faHeart, faGear } from '@fortawesome/free-solid-svg-icons'
 import type { TabId } from '../types'
 import type { BoardMode } from '../utils/modeColors'
 import { modeHeaderBg } from '../utils/modeColors'
 
 const TABS: { id: TabId; label: string; icon: any }[] = [
   { id: 'timetables', label: 'Horaires',  icon: faClock },
-  { id: 'station',    label: 'En Gare',   icon: faBuilding },
   { id: 'bulletin',   label: 'Bulletin',  icon: faFileAlt },
   { id: 'favorites',  label: 'Favoris',   icon: faHeart },
   { id: 'settings',   label: 'Reglages',  icon: faGear },

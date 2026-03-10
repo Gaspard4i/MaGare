@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSync, faTrain, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import TrainRow from './TrainRow'
 import TrainDetailSheet from './TrainDetailSheet'
 import TimePicker from '../molecules/TimePicker'
+import DestinationSearch from '../molecules/DestinationSearch'
 import { getDepartures, getArrivals, buildFromDatetime } from '../services/apiService'
 import type { Train, Place } from '../types'
 
@@ -15,6 +16,10 @@ interface Props {
 const todayStr = () => new Date().toISOString().split('T')[0]
 const nowStr = () => new Date().toTimeString().substring(0, 5)
 
+/** Normalize a station name for matching (lowercase, remove accents, trim parenthetical city) */
+const normalize = (s: string) =>
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim()
+
 export default function TrainBoard({ station, mode }: Props) {
   const [trains, setTrains] = useState<Train[]>([])
   const [loading, setLoading] = useState(false)
@@ -23,6 +28,14 @@ export default function TrainBoard({ station, mode }: Props) {
   const [selected, setSelected] = useState<Train | null>(null)
   const [date, setDate] = useState(todayStr)
   const [time, setTime] = useState(nowStr)
+  const [destination, setDestination] = useState<Place | null>(null)
+
+  const stationId = station?.stop_area?.id ?? station?.id ?? ''
+
+  // Reset destination when station changes
+  useEffect(() => {
+    setDestination(null)
+  }, [stationId])
 
   const fetchTrains = useCallback(async () => {
     if (!station) return
@@ -49,6 +62,28 @@ export default function TrainBoard({ station, mode }: Props) {
     const iv = setInterval(fetchTrains, 60_000)
     return () => clearInterval(iv)
   }, [fetchTrains])
+
+  // Filter trains by destination
+  const filteredTrains = useMemo(() => {
+    if (!destination) return trains
+    const destName = normalize(destination.stop_area?.name ?? destination.name ?? '')
+    if (!destName) return trains
+
+    return trains.filter(train => {
+      const info = train.display_informations
+      if (mode === 'departures') {
+        // Match direction field against destination
+        const dir = normalize(info?.direction ?? '')
+        return dir.includes(destName) || destName.includes(dir)
+      } else {
+        // For arrivals, match the origin/provenance (name field or direction)
+        const origin = normalize(info?.name ?? '')
+        const dir = normalize(info?.direction ?? '')
+        return origin.includes(destName) || destName.includes(origin)
+          || dir.includes(destName) || destName.includes(dir)
+      }
+    })
+  }, [trains, destination, mode])
 
   if (!station) {
     return (
@@ -83,6 +118,14 @@ export default function TrainBoard({ station, mode }: Props) {
       {/* Time picker */}
       <TimePicker date={date} time={time} onDateChange={setDate} onTimeChange={setTime} />
 
+      {/* Destination search */}
+      <DestinationSearch
+        stationId={stationId}
+        destination={destination}
+        onDestinationChange={setDestination}
+        mode={mode}
+      />
+
       {/* Column headers */}
       <div className="flex items-center gap-2 px-4 py-1.5 bg-black/10 border-b border-primary-content/10 text-primary-content/40 text-xs font-semibold uppercase tracking-widest">
         <div className="w-5" />
@@ -109,14 +152,14 @@ export default function TrainBoard({ station, mode }: Props) {
             Reessayer
           </button>
         </div>
-      ) : trains.length === 0 ? (
+      ) : filteredTrains.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-14 text-primary-content/30">
           <FontAwesomeIcon icon={faTrain} size="2x" className="mb-3" />
-          <p className="text-sm">Aucun train trouvé</p>
+          <p className="text-sm">{destination ? 'Aucun train pour cette destination' : 'Aucun train trouve'}</p>
         </div>
       ) : (
         <div>
-          {trains.map((train, idx) => (
+          {filteredTrains.map((train, idx) => (
             <TrainRow
               key={`${train.stop_date_time?.departure_date_time}-${idx}`}
               train={train}

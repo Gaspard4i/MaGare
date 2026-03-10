@@ -4,6 +4,7 @@ const K = {
   DEFAULT:    'mg_default_station',
   FAVORITES:  'mg_favorites',   // string[] of IDs
   FAV_PLACES: 'mg_fav_places',  // Record<id, Place>
+  DEST_FAVS:  'mg_dest_favs',   // Record<stationId, Record<destId, Place>>
   THEME:      'mg_theme',
 } as const
 
@@ -76,6 +77,45 @@ export const toggleFavorite = (id: string, place?: Place): boolean => {
   if (is) removeFavPlace(id)
   else if (place) saveFavPlace(id, place)
   return !is
+}
+
+// ── Destination favorites (per station) ───────────────────────────────────────
+
+type DestFavsMap = Record<string, Record<string, Place>>
+
+const getDestFavsMap = (): DestFavsMap => {
+  try {
+    const raw = localStorage.getItem(K.DEST_FAVS)
+    return raw ? JSON.parse(raw) : {}
+  } catch { return {} }
+}
+
+export const getDestFavPlaces = (stationId: string): Place[] => {
+  const map = getDestFavsMap()[stationId] ?? {}
+  return Object.values(map).sort((a, b) => {
+    const na = (a.stop_area?.name ?? a.name ?? '').toLowerCase()
+    const nb = (b.stop_area?.name ?? b.name ?? '').toLowerCase()
+    return na.localeCompare(nb, 'fr')
+  })
+}
+
+export const isDestFavorite = (stationId: string, destId: string): boolean => {
+  const map = getDestFavsMap()[stationId] ?? {}
+  return destId in map
+}
+
+export const toggleDestFavorite = (stationId: string, destId: string, place?: Place): boolean => {
+  const all = getDestFavsMap()
+  const stationMap = all[stationId] ?? {}
+  const exists = destId in stationMap
+  if (exists) {
+    delete stationMap[destId]
+  } else if (place) {
+    stationMap[destId] = place
+  }
+  all[stationId] = stationMap
+  localStorage.setItem(K.DEST_FAVS, JSON.stringify(all))
+  return !exists
 }
 
 // ── Theme ─────────────────────────────────────────────────────────────────────

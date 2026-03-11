@@ -33,7 +33,7 @@ export default function TrainTypeBadge({ type, lineCode, modeName, number, apiCo
   }
 
   return (
-    <div className="flex flex-col items-start gap-0.5">
+    <div className="flex items-center gap-1.5 flex-wrap">
       {/* Mode name: TER HDF, RER, etc. — small text */}
       {modeName && (
         <span className="opacity-50 text-2xs font-semibold uppercase leading-none truncate max-w-20">{modeName}</span>

@@ -174,12 +174,10 @@ export default function TrainBoard({ station, mode }: Props) {
       </div>
 
       {/* ── Column headers (darkest shade) ── */}
-      <div className="flex items-center gap-2 px-4 py-1.5 board-col-header text-xs font-semibold uppercase tracking-widest shrink-0" style={{ ...textStyle, opacity: 0.5 }}>
-        <div className="w-5" />
-        <div className="w-13 text-center">{t('board.time')}</div>
-        <div className="w-16">{t('board.train')}</div>
+      <div className="flex items-center gap-3 px-3 py-1.5 board-col-header text-xs font-semibold uppercase tracking-widest shrink-0" style={{ ...textStyle, opacity: 0.5 }}>
+        <div className="min-w-16 text-center">{t('board.time')}</div>
         <div className="flex-1">{mode === 'departures' ? t('board.destination') : t('board.provenance')}</div>
-        <div className="shrink-0 text-right pr-5">{t('board.status')}</div>
+        <div className="shrink-0 text-right pr-5">{t('detail.track')}</div>
       </div>
 
       {/* ── Scrollable train list (main bg) ── */}

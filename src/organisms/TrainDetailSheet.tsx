@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExternalLinkAlt, faFileAlt, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import StopItem from '../molecules/StopItem'
@@ -19,7 +19,6 @@ interface Props {
 
 const TER_BULLETIN_URL = 'https://www.ter.sncf.com/hauts-de-france/services-contacts/bulletin-retard'
 
-/** Parse API datetime "YYYYMMDDTHHmmss" to JS Date */
 const parseApiDt = (s?: string): Date | null => {
   if (!s || s.length < 15) return null
   const y = +s.substring(0, 4), mo = +s.substring(4, 6) - 1, d = +s.substring(6, 8)
@@ -27,9 +26,15 @@ const parseApiDt = (s?: string): Date | null => {
   return new Date(y, mo, d, h, mi, se)
 }
 
+const CLOSE_THRESHOLD = 100
+
 export default function TrainDetailSheet({ train, type, onClose }: Props) {
   const [journey, setJourney] = useState<VehicleJourney | null>(null)
   const [loadingJourney, setLoadingJourney] = useState(false)
+  const [dragY, setDragY] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartY = useRef(0)
+  const sheetRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!train) { setJourney(null); return }
@@ -40,6 +45,62 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
       .then(setJourney)
       .catch(() => setJourney(null))
       .finally(() => setLoadingJourney(false))
+  }, [train])
+
+  // ── Drag/swipe to close ──
+  const handleDragStart = useCallback((clientY: number) => {
+    setIsDragging(true)
+    dragStartY.current = clientY
+    setDragY(0)
+  }, [])
+
+  const handleDragMove = useCallback((clientY: number) => {
+    if (!isDragging) return
+    const dy = Math.max(0, clientY - dragStartY.current)
+    setDragY(dy)
+  }, [isDragging])
+
+  const handleDragEnd = useCallback(() => {
+    if (!isDragging) return
+    setIsDragging(false)
+    if (dragY > CLOSE_THRESHOLD) {
+      onClose()
+    }
+    setDragY(0)
+  }, [isDragging, dragY, onClose])
+
+  // Touch events
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    handleDragStart(e.touches[0].clientY)
+  }, [handleDragStart])
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    handleDragMove(e.touches[0].clientY)
+  }, [handleDragMove])
+  const onTouchEnd = useCallback(() => {
+    handleDragEnd()
+  }, [handleDragEnd])
+
+  // Mouse events
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    handleDragStart(e.clientY)
+  }, [handleDragStart])
+
+  useEffect(() => {
+    if (!isDragging) return
+    const onMove = (e: MouseEvent) => handleDragMove(e.clientY)
+    const onUp = () => handleDragEnd()
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [isDragging, handleDragMove, handleDragEnd])
+
+  // Reset drag on close
+  useEffect(() => {
+    if (!train) setDragY(0)
   }, [train])
 
   const isOpen = !!train
@@ -67,11 +128,9 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
     s => s.stop_point.name === currentStopName || s.stop_point.id === train.stop_point?.id
   ) ?? -1
 
-  // Train is upcoming if its real/scheduled time is in the future
   const trainDate = parseApiDt(real ?? scheduled)
   const isFuture = trainDate ? trainDate.getTime() > Date.now() : false
 
-  // Color scheme: blue (primary) for future trains, white (base-100) for past
   const sheetBg = isFuture ? 'bg-primary' : 'bg-base-100'
   const handleBg = isFuture ? 'bg-primary-content/20' : 'bg-base-300'
   const borderColor = isFuture ? 'border-primary-content/10' : 'border-base-300'
@@ -82,20 +141,34 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
   const timeColor = isFuture ? 'text-train-time' : 'text-train-time'
   const closeBtn = isFuture ? 'text-primary-content/50 hover:text-primary-content' : 'text-base-content/40 hover:text-base-content'
 
+  const sheetTransform = isOpen
+    ? `translateY(${dragY}px)`
+    : 'translateY(100%)'
+  const sheetOpacity = dragY > 0 ? Math.max(0.2, 1 - dragY / 300) : 1
+
   return (
     <>
       {/* Backdrop */}
       <div
         className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        style={dragY > 0 ? { opacity: sheetOpacity * 0.5 } : undefined}
         onClick={onClose}
       />
 
       {/* Sheet */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-50 max-w-lg mx-auto ${sheetBg} rounded-t-2xl shadow-2xl transition-all duration-300 ease-out max-h-[85vh] flex flex-col ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+        ref={sheetRef}
+        className={`fixed bottom-0 left-0 right-0 z-50 max-w-lg mx-auto ${sheetBg} rounded-t-2xl shadow-2xl max-h-[85vh] flex flex-col ${!isDragging ? 'transition-all duration-300 ease-out' : ''}`}
+        style={{ transform: sheetTransform }}
       >
-        {/* Handle */}
-        <div className="flex justify-center pt-3 pb-1 shrink-0">
+        {/* Handle — drag zone */}
+        <div
+          className="flex justify-center pt-3 pb-1 shrink-0 cursor-grab active:cursor-grabbing select-none touch-none"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+          onMouseDown={onMouseDown}
+        >
           <div className={`w-10 h-1 ${handleBg} rounded-full`} />
         </div>
 

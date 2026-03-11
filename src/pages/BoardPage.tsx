@@ -44,8 +44,8 @@ export default function BoardPage({ station, boardMode, onSelect, onBoardModeCha
       <div className="hidden xl:flex flex-1 min-h-0 w-full pt-4">
 
         {/* Departures */}
-        <div className="flex-1 flex flex-col bg-primary overflow-hidden rounded-tl-2xl">
-          <div className="flex items-center gap-2 px-6 py-3 bg-black/15 text-primary-content shrink-0">
+        <div className="flex-1 flex flex-col bg-primary overflow-hidden rounded-tl-2xl board-departures">
+          <div className="flex items-center gap-2 px-6 py-3 board-title-bar text-primary-content shrink-0">
             <span className="font-bold text-sm tracking-wide uppercase">Departs</span>
             <FontAwesomeIcon icon={faTrain} size="sm" />
             <FontAwesomeIcon icon={faAnglesRight} size="sm" />
@@ -56,8 +56,8 @@ export default function BoardPage({ station, boardMode, onSelect, onBoardModeCha
         </div>
 
         {/* Arrivals */}
-        <div className="flex-1 flex flex-col bg-secondary overflow-hidden rounded-tr-2xl">
-          <div className="flex items-center gap-2 px-6 py-3 bg-black/15 text-secondary-content shrink-0">
+        <div className="flex-1 flex flex-col bg-secondary overflow-hidden rounded-tr-2xl board-arrivals">
+          <div className="flex items-center gap-2 px-6 py-3 board-title-bar text-secondary-content shrink-0">
             <FontAwesomeIcon icon={faAnglesLeft} size="sm" />
             <FontAwesomeIcon icon={faTrain} className="scale-x-[-1]" size="sm" />
             <span className="font-bold text-sm tracking-wide uppercase">Arrivees</span>

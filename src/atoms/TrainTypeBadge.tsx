@@ -3,16 +3,19 @@ import { getTrainBadgeClass, type TrainTypeKey } from '../services/apiService'
 interface Props {
   type: TrainTypeKey
   number?: string
+  label?: string
 }
 
-export default function TrainTypeBadge({ type, number }: Props) {
+export default function TrainTypeBadge({ type, number, label }: Props) {
+  const displayName = label || type
+
   return (
     <div className="flex flex-col items-start gap-0.5">
       <span className={`badge badge-sm ${getTrainBadgeClass(type)} font-bold tracking-wide`}>
-        {type}
+        {displayName}
       </span>
       {number && (
-        <span className="text-primary-content/40 text-xs truncate max-w-14">{number}</span>
+        <span className="opacity-40 text-xs truncate max-w-16">{number}</span>
       )}
     </div>
   )

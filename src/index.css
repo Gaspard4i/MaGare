@@ -2,7 +2,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/* ── Theme ───────────────────────────────────────────────────────────────── */
+/* ── Theme Clair ─────────────────────────────────────────────────────────── */
 @plugin "daisyui/theme" {
   name: "app-sncf";
   default: true;
@@ -53,6 +53,57 @@
   --radius-box: 1rem;
 }
 
+/* ── Theme Sombre ────────────────────────────────────────────────────────── */
+@plugin "daisyui/theme" {
+  name: "app-sncf-dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: "dark";
+
+  /* Base */
+  --color-base-100: rgb(24, 24, 27);
+  --color-base-200: rgb(39, 39, 42);
+  --color-base-300: rgb(63, 63, 70);
+  --color-base-content: rgb(244, 244, 245);
+
+  /* Primaire : bleu – navbar, departs */
+  --color-primary: rgb(59, 130, 246);
+  --color-primary-content: rgb(249, 249, 249);
+
+  /* Secondaire : vert – arrivees */
+  --color-secondary: rgb(34, 197, 94);
+  --color-secondary-content: rgb(249, 249, 249);
+
+  /* Accent : dore – favoris, etoiles */
+  --color-accent: rgb(251, 191, 36);
+  --color-accent-content: rgb(0, 0, 0);
+
+  /* Neutre : gris */
+  --color-neutral: rgb(161, 161, 170);
+  --color-neutral-content: rgb(24, 24, 27);
+
+  /* Info : ceruleen – liens, focus */
+  --color-info: rgb(56, 189, 248);
+  --color-info-content: rgb(249, 249, 249);
+
+  /* Success : vert – a l'heure */
+  --color-success: rgb(34, 197, 94);
+  --color-success-content: rgb(249, 249, 249);
+
+  /* Warning : orange – retards */
+  --color-warning: rgb(251, 146, 60);
+  --color-warning-content: rgb(249, 249, 249);
+
+  /* Error : rouge – annulations */
+  --color-error: rgb(239, 68, 68);
+  --color-error-content: rgb(249, 249, 249);
+
+  /* Formes */
+  --radius-selector: 1rem;
+  --radius-field: 9999px;
+  --radius-box: 1rem;
+}
+
 /* ── Custom properties ───────────────────────────────────────────────────── */
 :root {
   --primary-dark: rgb(5, 66, 135);
@@ -62,6 +113,17 @@
   --fav-color: rgb(198, 27, 0);
   --train-time: rgb(254, 236, 1);
   --voie-bg: rgb(251, 251, 251);
+}
+
+/* Variables pour le theme sombre */
+[data-theme="app-sncf-dark"] {
+  --primary-dark: rgb(96, 165, 250);
+  --primary-darker: rgb(59, 130, 246);
+  --secondary-dark: rgb(74, 222, 128);
+  --secondary-darker: rgb(34, 197, 94);
+  --fav-color: rgb(248, 113, 113);
+  --train-time: rgb(254, 240, 138);
+  --voie-bg: rgb(39, 39, 42);
 }
 
 /* ── Global ──────────────────────────────────────────────────────────────── */
@@ -136,6 +198,36 @@ body {
   font-weight: bold;
 }
 
+/* Adaptation pour le theme sombre */
+[data-theme="app-sncf-dark"] .track-badge {
+  color: white;
+}
+
+/* ── Board color scoping ─────────────────────────────────────────────────── */
+
+.board-departures {
+  --board-bg: var(--color-primary);
+  --board-dark: var(--primary-dark);
+  --board-darker: var(--primary-darker);
+  --board-text: var(--color-primary-content);
+}
+.board-arrivals {
+  --board-bg: var(--color-secondary);
+  --board-dark: var(--secondary-dark);
+  --board-darker: var(--secondary-darker);
+  --board-text: var(--color-secondary-content);
+}
+
+.board-toolbar {
+  background-color: var(--board-dark);
+}
+.board-col-header {
+  background-color: var(--board-darker);
+}
+.board-title-bar {
+  background-color: var(--board-darker);
+}
+
 /* ── Hover pour les lignes de trains (fond colore) ───────────────────────── */
 
 .train-row-hover {
@@ -158,4 +250,9 @@ body {
 .link-action:hover {
   color: color-mix(in oklch, var(--color-info) 80%, black);
   text-decoration: underline;
+}
+
+/* Adaptation du hover pour le theme sombre */
+[data-theme="app-sncf-dark"] .link-action:hover {
+  color: color-mix(in oklch, var(--color-info) 80%, white);
 }

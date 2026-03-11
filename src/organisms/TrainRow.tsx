@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import TimeDisplay from '../atoms/TimeDisplay'
 import TrainTypeBadge from '../atoms/TrainTypeBadge'
-import TrackBadge from '../atoms/TrackBadge'
 import StatusBadge from '../atoms/StatusBadge'
 import TransportIcon from '../atoms/TransportIcon'
 import {
@@ -37,44 +36,45 @@ export default function TrainRow({ train, type, onClick }: Props) {
   const number = info?.trip_short_name ?? info?.headsign ?? ''
   const track = train.stop_point?.platform_code ?? null
   const cancelled = info?.effect === 'NO_SERVICE'
-
-  const network = info?.network ?? ''
+  // Use the actual commercial mode name from the API
+  const commercialLabel = info?.commercial_mode || trainType
 
   return (
     <button
       onClick={() => onClick(train)}
-      className={`w-full flex items-center gap-2 px-3 py-3 border-b border-primary-content/10 train-row-hover text-left ${cancelled ? 'opacity-55' : ''}`}
+      className={`w-full flex items-center gap-2 px-3 py-2.5 border-b border-white/8 train-row-hover text-left ${cancelled ? 'opacity-55' : ''}`}
     >
       {/* Mode icon */}
       <div className="w-5 shrink-0 flex items-center justify-center">
-        <TransportIcon mode={physMode} className="text-primary-content/30" size="xs" />
+        <TransportIcon mode={physMode} className="opacity-30" size="xs" />
       </div>
 
       {/* Time */}
       <TimeDisplay time={displayTime} scheduledTime={scheduledTime} delay={delay} />
 
-      {/* Train type badge */}
+      {/* Train type badge + number */}
       <div className="w-14 shrink-0">
-        <TrainTypeBadge type={trainType} number={number} />
+        <TrainTypeBadge type={trainType} number={number} label={commercialLabel} />
       </div>
 
-      {/* Destination */}
+      {/* Destination + track */}
       <div className="flex-1 min-w-0">
-        <div className={`font-bold text-sm truncate leading-tight ${cancelled ? 'line-through text-primary-content/40' : 'text-primary-content'}`}>
+        <div className={`font-bold text-sm truncate leading-tight ${cancelled ? 'line-through opacity-40' : ''}`}>
           {destination}
         </div>
-        {network && (
-          <div className="text-primary-content/50 text-xs truncate">{network}</div>
+        {track && (
+          <div className="text-xs opacity-50 mt-0.5">
+            Voie {track}
+          </div>
         )}
       </div>
 
-      {/* Right side: status + track */}
-      <div className="flex flex-col items-end gap-1 shrink-0">
+      {/* Status */}
+      <div className="shrink-0">
         <StatusBadge delay={delay} cancelled={cancelled} />
-        {track && <TrackBadge track={track} />}
       </div>
 
-      <FontAwesomeIcon icon={faChevronRight} className="text-primary-content/20 shrink-0" size="xs" />
+      <FontAwesomeIcon icon={faChevronRight} className="opacity-20 shrink-0" size="xs" />
     </button>
   )
 }

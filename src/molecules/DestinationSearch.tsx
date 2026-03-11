@@ -39,7 +39,6 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
       setLoading(true)
       try {
         const places = await searchStations(query)
-        // Exclude the current station from results
         setResults(places.filter(p => {
           const pid = p.stop_area?.id ?? p.id
           return pid !== stationId
@@ -85,28 +84,25 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
     loadFavs()
   }
 
-  // If destination is already set, show a compact pill
+  const label = mode === 'departures' ? 'Vers' : 'Depuis'
+
+  // Compact pill when destination is set
   if (destination) {
     const destName = destination.stop_area?.name ?? destination.name ?? ''
     const destId = destination.stop_area?.id ?? destination.id
     const destIsFav = isDestFavorite(stationId, destId)
     return (
-      <div className="flex items-center gap-2 px-4 py-2 bg-black/10 border-b border-primary-content/10">
-        <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" className="text-primary-content/40 shrink-0" />
-        <span className="text-primary-content/50 text-xs font-semibold uppercase tracking-wider shrink-0">
-          {mode === 'departures' ? 'Vers' : 'Depuis'}
-        </span>
-        <span className="text-primary-content text-sm font-semibold truncate flex-1">{destName}</span>
+      <div className="flex items-center gap-2 px-3 py-1.5 border-t border-white/10" style={{ color: 'var(--board-text)' }}>
+        <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" className="opacity-40 shrink-0" />
+        <span className="opacity-50 text-[10px] font-semibold uppercase tracking-wider shrink-0">{label}</span>
+        <span className="text-xs font-semibold truncate flex-1">{destName}</span>
         <button
           onClick={e => handleToggleFav(e, destination)}
-          className={`p-1 transition-colors shrink-0 ${destIsFav ? 'text-fav' : 'text-primary-content/30 hover:text-fav'}`}
+          className={`p-1 transition-colors shrink-0 ${destIsFav ? 'text-fav' : 'opacity-30 hover:text-fav'}`}
         >
           <FontAwesomeIcon icon={faHeart} size="xs" />
         </button>
-        <button
-          onClick={handleClear}
-          className="text-primary-content/40 hover:text-primary-content transition-colors shrink-0"
-        >
+        <button onClick={handleClear} className="opacity-40 hover:opacity-100 transition-opacity shrink-0">
           <FontAwesomeIcon icon={faTimes} size="xs" />
         </button>
       </div>
@@ -118,27 +114,26 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
   const showEmpty = open && query.length >= 2 && results.length === 0 && !loading
 
   return (
-    <div ref={wrapRef} className="relative border-b border-primary-content/10">
-      <div className="flex items-center gap-2 px-4 py-2 bg-black/5">
-        <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" className="text-primary-content/40 shrink-0" />
-        <span className="text-primary-content/50 text-xs font-semibold uppercase tracking-wider shrink-0">
-          {mode === 'departures' ? 'Vers' : 'Depuis'}
-        </span>
+    <div ref={wrapRef} className="relative" style={{ color: 'var(--board-text)' }}>
+      <div className="flex items-center gap-2 px-3 py-1.5 border-t border-white/10">
+        <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" className="opacity-40 shrink-0" />
+        <span className="opacity-50 text-[10px] font-semibold uppercase tracking-wider shrink-0">{label}</span>
         <div className="relative flex-1 flex items-center">
-          <FontAwesomeIcon icon={faSearch} className="absolute left-2.5 z-10 pointer-events-none text-primary-content/30" size="xs" />
+          <FontAwesomeIcon icon={faSearch} className="absolute left-2 z-10 pointer-events-none opacity-30" size="xs" />
           <input
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
             onFocus={handleFocus}
             placeholder={mode === 'departures' ? 'Filtrer par destination...' : 'Filtrer par provenance...'}
-            className="w-full pl-7 pr-7 py-1.5 rounded-lg bg-primary-content/10 border border-primary-content/15 text-primary-content placeholder-primary-content/30 focus:outline-none focus:border-primary-content/40 transition-all text-xs"
+            className="w-full pl-6 pr-6 py-1 rounded-md bg-white/10 border border-white/15 placeholder-white/30 focus:outline-none focus:border-white/40 transition-all text-xs"
+            style={{ color: 'inherit' }}
           />
           {loading && (
-            <span className="absolute right-2 loading loading-spinner loading-xs text-primary-content/50" />
+            <span className="absolute right-2 loading loading-spinner loading-xs opacity-50" />
           )}
           {!loading && query && (
-            <button onClick={handleClear} className="absolute right-2 text-primary-content/30 hover:text-primary-content transition-colors">
+            <button onClick={handleClear} className="absolute right-2 opacity-30 hover:opacity-100 transition-opacity">
               <FontAwesomeIcon icon={faTimes} size="xs" />
             </button>
           )}

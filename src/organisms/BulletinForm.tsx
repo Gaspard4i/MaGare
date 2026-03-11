@@ -4,6 +4,7 @@ import {
   faArrowRight, faExternalLinkAlt, faInfoCircle,
   faCalendarDay, faClock, faArrowLeft, faArrowRightArrowLeft
 } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import LZString from 'lz-string'
 import SearchInput from '../molecules/SearchInput'
 import StationResultItem from '../molecules/StationResultItem'
@@ -23,13 +24,6 @@ const TER_REGIONS = [
   { id: 'occitanie',            label: 'Occitanie' },
   { id: 'nouvelle-aquitaine',   label: 'Nouvelle-Aquitaine' },
 ]
-
-const hourSlots: string[] = []
-for (let h = 0; h < 24; h++) {
-  const h1 = String(h).padStart(2, '0') + ':00'
-  const h2 = String((h + 1) % 24).padStart(2, '0') + ':00'
-  hourSlots.push(`${h1} et ${h2}`)
-}
 
 const extractUIC = (place: Place): string => {
   const id = place.stop_area?.id ?? place.id ?? ''
@@ -57,6 +51,15 @@ const buildTerUrl = (dep: Place, arr: Place, date: string, hourSlot: string, reg
 type Field = 'departure' | 'arrival' | null
 
 export default function BulletinForm() {
+  const { t } = useTranslation()
+
+  const hourSlots: string[] = []
+  for (let h = 0; h < 24; h++) {
+    const h1 = String(h).padStart(2, '0') + ':00'
+    const h2 = String((h + 1) % 24).padStart(2, '0') + ':00'
+    hourSlots.push(`${h1} ${t('bulletin.and')} ${h2}`)
+  }
+
   const [depStation, setDepStation] = useState<Place | null>(null)
   const [arrStation, setArrStation] = useState<Place | null>(null)
   const [depQuery, setDepQuery]     = useState('')
@@ -66,7 +69,7 @@ export default function BulletinForm() {
   const [loadingField, setLoading]  = useState<Field>(null)
   const [activeField, setActive]    = useState<Field>(null)
   const [date, setDate]             = useState(todayStr)
-  const [hourSlot, setHourSlot]     = useState('08:00 et 09:00')
+  const [hourSlot, setHourSlot]     = useState(`08:00 ${t('bulletin.and')} 09:00`)
   const [region, setRegion]         = useState('hauts-de-france')
 
   const timers: Record<string, ReturnType<typeof setTimeout>> = {}
@@ -127,7 +130,7 @@ export default function BulletinForm() {
       {/* Region */}
       <div>
         <label className="block text-base-content/50 text-xs font-semibold uppercase tracking-wider mb-1.5">
-          Region TER
+          {t('bulletin.region')}
         </label>
         <select
           value={region}
@@ -145,14 +148,14 @@ export default function BulletinForm() {
         <div className="relative">
           <label className="flex items-center gap-1.5 text-base-content/50 text-xs font-semibold uppercase tracking-wider mb-1.5">
             <FontAwesomeIcon icon={faArrowRight} size="xs" className="text-success" />
-            Gare de depart
+            {t('bulletin.departure')}
           </label>
           <SearchInput
             value={depQuery}
             onChange={q => { setDepQuery(q); setActive('departure'); search(q, 'departure') }}
             onClear={() => { setDepQuery(''); setDepStation(null); setDepResults([]) }}
             loading={loadingField === 'departure'}
-            placeholder="Paris Saint-Lazare..."
+            placeholder={t('bulletin.departurePlaceholder')}
             variant="light"
           />
           {activeField === 'departure' && depResults.length > 0 && (
@@ -167,7 +170,7 @@ export default function BulletinForm() {
           <button
             onClick={swapStations}
             className="p-2 rounded-full bg-base-300 hover:bg-base-content/15 transition-colors text-base-content/50 hover:text-base-content"
-            title="Inverser depart et arrivee"
+            title={t('bulletin.swap')}
           >
             <FontAwesomeIcon icon={faArrowRightArrowLeft} size="xs" className="rotate-90" />
           </button>
@@ -176,14 +179,14 @@ export default function BulletinForm() {
         <div className="relative">
           <label className="flex items-center gap-1.5 text-base-content/50 text-xs font-semibold uppercase tracking-wider mb-1.5">
             <FontAwesomeIcon icon={faArrowLeft} size="xs" className="text-error" />
-            Gare d'arrivee
+            {t('bulletin.arrival')}
           </label>
           <SearchInput
             value={arrQuery}
             onChange={q => { setArrQuery(q); setActive('arrival'); search(q, 'arrival') }}
             onClear={() => { setArrQuery(''); setArrStation(null); setArrResults([]) }}
             loading={loadingField === 'arrival'}
-            placeholder="Lille-Flandres..."
+            placeholder={t('bulletin.arrivalPlaceholder')}
             variant="light"
           />
           {activeField === 'arrival' && arrResults.length > 0 && (
@@ -199,7 +202,7 @@ export default function BulletinForm() {
         <div>
           <label className="flex items-center gap-1.5 text-base-content/50 text-xs font-semibold uppercase tracking-wider mb-1.5">
             <FontAwesomeIcon icon={faCalendarDay} size="xs" />
-            Date du voyage
+            {t('bulletin.date')}
           </label>
           <input
             type="date"
@@ -212,7 +215,7 @@ export default function BulletinForm() {
         <div>
           <label className="flex items-center gap-1.5 text-base-content/50 text-xs font-semibold uppercase tracking-wider mb-1.5">
             <FontAwesomeIcon icon={faClock} size="xs" />
-            Creneau d'arrivee
+            {t('bulletin.slot')}
           </label>
           <select
             value={hourSlot}
@@ -220,7 +223,7 @@ export default function BulletinForm() {
             className="w-full px-3 py-2.5 rounded-xl bg-base-100 border border-base-300 text-base-content text-sm focus:outline-none focus:border-info focus:ring-1 focus:ring-info/30 transition-all"
           >
             {hourSlots.map(s => (
-              <option key={s} value={s}>{s.replace(' et ', ' \u2192 ')}</option>
+              <option key={s} value={s}>{s.replace(` ${t('bulletin.and')} `, ' \u2192 ')}</option>
             ))}
           </select>
         </div>
@@ -229,7 +232,7 @@ export default function BulletinForm() {
       {/* Preview */}
       {canSubmit && (
         <div className="p-3 bg-base-100 border border-base-300 rounded-lg">
-          <p className="text-base-content/40 text-xs mb-1 font-semibold">URL generee :</p>
+          <p className="text-base-content/40 text-xs mb-1 font-semibold">{t('bulletin.urlGenerated')}</p>
           <p className="text-base-content/60 text-xs break-all font-mono leading-relaxed">
             ter.sncf.com/{region}/.../bulletin-retard-resultats?search=
             <span className="text-success">[{depStation?.stop_area?.name ?? depStation?.name} &rarr; {arrStation?.stop_area?.name ?? arrStation?.name}]</span>
@@ -248,11 +251,11 @@ export default function BulletinForm() {
         }`}
       >
         <FontAwesomeIcon icon={faExternalLinkAlt} size="sm" />
-        Ouvrir le bulletin de retard
+        {t('bulletin.open')}
       </button>
 
       <p className="text-base-content/30 text-xs text-center">
-        Redirige vers le site officiel TER SNCF avec votre trajet pre-rempli
+        {t('bulletin.openHint')}
       </p>
     </div>
   )

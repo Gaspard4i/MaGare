@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faTrain } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import { getFavoritePlaces, toggleFavorite } from '../services/storageService'
 import type { Place, TabId } from '../types'
 import { useState } from 'react'
@@ -7,6 +8,7 @@ import { useState } from 'react'
 interface Props { onSelect: (p: Place) => void; onTabChange: (t: TabId) => void }
 
 export default function FavoritesPage({ onSelect, onTabChange }: Props) {
+  const { t } = useTranslation()
   const [favs, setFavs] = useState(() => getFavoritePlaces())
 
   const removeFav = (p: Place) => {
@@ -29,8 +31,8 @@ export default function FavoritesPage({ onSelect, onTabChange }: Props) {
             <FontAwesomeIcon icon={faHeart} />
           </div>
           <div>
-            <h1 className="font-bold text-base lg:text-lg">Mes Favoris</h1>
-            <p className="text-primary-content/50 text-xs">{favs.length} gare{favs.length !== 1 ? 's' : ''} sauvegardee{favs.length !== 1 ? 's' : ''}</p>
+            <h1 className="font-bold text-base lg:text-lg">{t('favorites.title')}</h1>
+            <p className="text-primary-content/50 text-xs">{t('favorites.station', { count: favs.length })}</p>
           </div>
         </div>
       </div>
@@ -39,8 +41,8 @@ export default function FavoritesPage({ onSelect, onTabChange }: Props) {
         {favs.length === 0 ? (
           <div className="text-center py-20">
             <FontAwesomeIcon icon={faHeart} size="3x" className="text-base-300 mb-4" />
-            <p className="text-base-content/50 font-medium text-lg">Aucune gare favorite</p>
-            <p className="text-base-content/35 text-sm mt-1">Appuyez sur &#9829; pour ajouter une gare</p>
+            <p className="text-base-content/50 font-medium text-lg">{t('favorites.empty')}</p>
+            <p className="text-base-content/35 text-sm mt-1">{t('favorites.emptyHint')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">

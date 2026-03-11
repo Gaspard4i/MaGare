@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "timetables": "Horaires",
+    "bulletin": "Bulletin",
+    "favorites": "Favoris",
+    "settings": "Reglages"
+  },
+  "board": {
+    "departures": "Departs",
+    "arrivals": "Arrivees",
+    "time": "Heure",
+    "train": "Train",
+    "destination": "Destination",
+    "provenance": "Provenance",
+    "status": "Etat",
+    "loading": "Chargement...",
+    "retry": "Reessayer",
+    "loadError": "Erreur de chargement",
+    "noTrainDest": "Aucun train pour cette destination",
+    "noTrain": "Aucun train trouve",
+    "selectStation": "Selectionnez une gare",
+    "scrollDay": "Molette pour changer le jour",
+    "scrollTime": "Molette pour changer l'heure (pas de 5 min)"
+  },
+  "search": {
+    "placeholder": "Rechercher une gare...",
+    "favorites": "Mes gares favorites",
+    "noResult": "Aucune gare trouvee",
+    "filterDest": "Filtrer par destination...",
+    "filterProv": "Filtrer par provenance...",
+    "favDest": "Destinations favorites",
+    "favProv": "Provenances favorites",
+    "to": "Vers",
+    "from": "Depuis"
+  },
+  "detail": {
+    "track": "Voie",
+    "delayJustification": "Obtenir un justificatif de retard",
+    "viaTer": "Via le site TER SNCF",
+    "stops": "Arrets desservis",
+    "stopsUnavailable": "Detail des arrets non disponible"
+  },
+  "status": {
+    "cancelled": "Supprime",
+    "onTime": "A l'heure",
+    "delayed": "+{{minutes}} min"
+  },
+  "favorites": {
+    "title": "Mes Favoris",
+    "station_one": "{{count}} gare sauvegardee",
+    "station_other": "{{count}} gares sauvegardees",
+    "empty": "Aucune gare favorite",
+    "emptyHint": "Appuyez sur \u2665 pour ajouter une gare",
+    "add": "Ajouter aux favoris",
+    "remove": "Retirer des favoris"
+  },
+  "default": {
+    "title": "Gare par defaut",
+    "empty": "Aucune gare par defaut",
+    "emptyHint": "Recherchez une gare et definissez-la comme defaut depuis l'en-tete",
+    "favTip": "Ajoutez des gares en favoris via le \u2665 pour les retrouver rapidement dans la recherche.",
+    "set": "Definir comme gare par defaut",
+    "unset": "Retirer du defaut"
+  },
+  "bulletin": {
+    "title": "Bulletin de retard",
+    "subtitle": "Justificatif officiel SNCF",
+    "region": "Region TER",
+    "departure": "Gare de depart",
+    "arrival": "Gare d'arrivee",
+    "departurePlaceholder": "Paris Saint-Lazare...",
+    "arrivalPlaceholder": "Lille-Flandres...",
+    "swap": "Inverser depart et arrivee",
+    "date": "Date du voyage",
+    "slot": "Creneau d'arrivee",
+    "and": "et",
+    "urlGenerated": "URL generee :",
+    "open": "Ouvrir le bulletin de retard",
+    "openHint": "Redirige vers le site officiel TER SNCF avec votre trajet pre-rempli"
+  },
+  "settings": {
+    "title": "Reglages",
+    "subtitle": "Personnalisez l'application",
+    "darkTheme": "Theme sombre",
+    "darkThemeHint": "Fond noir, ideal en faible luminosite",
+    "about": "A propos",
+    "version": "Version",
+    "data": "Donnees",
+    "license": "Licence",
+    "clearData": "Effacer favoris et donnees locales",
+    "credits": "Credits & licences",
+    "legalNotice": "Ce projet est distribue sous licence MIT. Les donnees ferroviaires sont fournies par l'API SNCF (Navitia). Les marques citees appartiennent a leurs proprietaires respectifs."
+  },
+  "credits": {
+    "developer": "Developpeur",
+    "aiAssistant": "Assistant IA",
+    "realtimeData": "Donnees temps reel",
+    "uiLibrary": "Librairie UI",
+    "bundler": "Bundler / serveur dev",
+    "cssFramework": "Framework CSS",
+    "uiComponents": "Composants UI / themes",
+    "icons": "Icones",
+    "routing": "Routing SPA",
+    "typing": "Typage statique",
+    "compression": "Compression URL",
+    "hosting": "Hebergement"
+  },
+  "time": {
+    "from": "A partir de"
+  },
+  "error": {
+    "api": "Erreur API ({{status}})"
+  }
+}

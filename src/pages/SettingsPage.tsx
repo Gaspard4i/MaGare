@@ -1,24 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun, faGear, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import { getTheme, setTheme } from '../services/storageService'
 import { useState } from 'react'
 
 const CREDITS = [
-  { name: 'Gaspard Catry', role: 'Developpeur', url: 'https://github.com/Gaspard4i' },
-  { name: 'Claude (Anthropic)', role: 'Assistant IA', url: 'https://anthropic.com' },
-  { name: 'SNCF — API Navitia', role: 'Donnees temps reel', url: 'https://www.digital.sncf.com/startup/api' },
-  { name: 'React', role: 'Librairie UI', url: 'https://react.dev' },
-  { name: 'Vite', role: 'Bundler / serveur dev', url: 'https://vite.dev' },
-  { name: 'Tailwind CSS', role: 'Framework CSS', url: 'https://tailwindcss.com' },
-  { name: 'DaisyUI', role: 'Composants UI / themes', url: 'https://daisyui.com' },
-  { name: 'Font Awesome', role: 'Icones', url: 'https://fontawesome.com' },
-  { name: 'React Router', role: 'Routing SPA', url: 'https://reactrouter.com' },
-  { name: 'TypeScript', role: 'Typage statique', url: 'https://www.typescriptlang.org' },
-  { name: 'LZ-String', role: 'Compression URL', url: 'https://github.com/pieroxy/lz-string' },
-  { name: 'GitHub Pages', role: 'Hebergement', url: 'https://pages.github.com' },
+  { nameKey: 'Gaspard Catry', roleKey: 'credits.developer', url: 'https://github.com/Gaspard4i' },
+  { nameKey: 'Claude (Anthropic)', roleKey: 'credits.aiAssistant', url: 'https://anthropic.com' },
+  { nameKey: 'SNCF — API Navitia', roleKey: 'credits.realtimeData', url: 'https://www.digital.sncf.com/startup/api' },
+  { nameKey: 'React', roleKey: 'credits.uiLibrary', url: 'https://react.dev' },
+  { nameKey: 'Vite', roleKey: 'credits.bundler', url: 'https://vite.dev' },
+  { nameKey: 'Tailwind CSS', roleKey: 'credits.cssFramework', url: 'https://tailwindcss.com' },
+  { nameKey: 'DaisyUI', roleKey: 'credits.uiComponents', url: 'https://daisyui.com' },
+  { nameKey: 'Font Awesome', roleKey: 'credits.icons', url: 'https://fontawesome.com' },
+  { nameKey: 'React Router', roleKey: 'credits.routing', url: 'https://reactrouter.com' },
+  { nameKey: 'TypeScript', roleKey: 'credits.typing', url: 'https://www.typescriptlang.org' },
+  { nameKey: 'LZ-String', roleKey: 'credits.compression', url: 'https://github.com/pieroxy/lz-string' },
+  { nameKey: 'GitHub Pages', roleKey: 'credits.hosting', url: 'https://pages.github.com' },
 ]
 
 export default function SettingsPage() {
+  const { t } = useTranslation()
   const [isDark, setIsDark] = useState(() => getTheme() === 'sncf-dark')
 
   const toggleTheme = () => {
@@ -43,8 +45,8 @@ export default function SettingsPage() {
             <FontAwesomeIcon icon={faGear} />
           </div>
           <div>
-            <h1 className="font-bold text-base lg:text-lg">Reglages</h1>
-            <p className="text-primary-content/50 text-xs">Personnalisez l'application</p>
+            <h1 className="font-bold text-base lg:text-lg">{t('settings.title')}</h1>
+            <p className="text-primary-content/50 text-xs">{t('settings.subtitle')}</p>
           </div>
         </div>
       </div>
@@ -61,8 +63,8 @@ export default function SettingsPage() {
                     <FontAwesomeIcon icon={isDark ? faMoon : faSun} className={isDark ? 'text-info' : 'text-warning'} />
                   </div>
                   <div>
-                    <div className="font-semibold text-base-content text-sm">Theme sombre</div>
-                    <div className="text-base-content/50 text-xs">Fond noir, ideal en faible luminosite</div>
+                    <div className="font-semibold text-base-content text-sm">{t('settings.darkTheme')}</div>
+                    <div className="text-base-content/50 text-xs">{t('settings.darkThemeHint')}</div>
                   </div>
                 </div>
                 <input
@@ -78,17 +80,17 @@ export default function SettingsPage() {
           {/* App info */}
           <div className="card bg-base-100 shadow-sm border border-base-300 hover:shadow-md transition-shadow">
             <div className="card-body p-4 lg:p-6 space-y-3">
-              <h2 className="text-base-content font-semibold text-sm">A propos</h2>
+              <h2 className="text-base-content font-semibold text-sm">{t('settings.about')}</h2>
               <div className="flex justify-between text-sm">
-                <span className="text-base-content/60">Version</span>
+                <span className="text-base-content/60">{t('settings.version')}</span>
                 <span className="font-semibold text-base-content">1.0.0</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-base-content/60">Donnees</span>
+                <span className="text-base-content/60">{t('settings.data')}</span>
                 <span className="font-semibold text-base-content">API SNCF Navitia</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-base-content/60">Licence</span>
+                <span className="text-base-content/60">{t('settings.license')}</span>
                 <span className="font-semibold text-base-content">MIT</span>
               </div>
             </div>
@@ -103,32 +105,31 @@ export default function SettingsPage() {
             className="btn btn-error btn-outline w-full gap-2 hover:brightness-110"
           >
             <FontAwesomeIcon icon={faTrash} />
-            Effacer favoris et donnees locales
+            {t('settings.clearData')}
           </button>
         </div>
 
         {/* Credits */}
         <div className="mt-8 max-w-3xl">
-          <h2 className="text-base-content font-bold text-sm mb-3">Credits & licences</h2>
+          <h2 className="text-base-content font-bold text-sm mb-3">{t('settings.credits')}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {CREDITS.map(c => (
               <a
-                key={c.name}
+                key={c.nameKey}
                 href={c.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow"
               >
                 <div className="card-body p-3">
-                  <div className="font-semibold text-sm text-base-content leading-tight">{c.name}</div>
-                  <div className="text-2xs text-base-content/50">{c.role}</div>
+                  <div className="font-semibold text-sm text-base-content leading-tight">{c.nameKey}</div>
+                  <div className="text-2xs text-base-content/50">{t(c.roleKey)}</div>
                 </div>
               </a>
             ))}
           </div>
           <p className="text-2xs text-base-content/30 mt-4">
-            Ce projet est distribue sous licence MIT. Les donnees ferroviaires sont fournies par l'API SNCF (Navitia).
-            Les marques citees appartiennent a leurs proprietaires respectifs.
+            {t('settings.legalNotice')}
           </p>
         </div>
       </div>

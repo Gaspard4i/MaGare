@@ -4,6 +4,7 @@
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import SearchBar from './SearchBar'
 import FavoriteButton from '../atoms/FavoriteButton'
 import { isFavorite, toggleFavorite, setDefaultStation, getDefaultStation } from '../services/storageService'
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export default function Header({ selected, onSelect, activeTab, boardMode }: Props) {
+  const { t } = useTranslation()
   const id   = selected?.stop_area?.id ?? selected?.id ?? ''
   const name = selected?.stop_area?.name ?? selected?.name ?? ''
 
@@ -61,7 +63,7 @@ export default function Header({ selected, onSelect, activeTab, boardMode }: Pro
           <span className="font-semibold text-sm truncate flex-1">{name}</span>
           <button
             onClick={handleDef}
-            title={isDef ? 'Retirer du defaut' : 'Definir comme gare par defaut'}
+            title={isDef ? t('default.unset') : t('default.set')}
             className={`p-1 transition-colors ${isDef ? 'text-accent' : 'text-primary-content/30 hover:text-accent'}`}
           >
             <FontAwesomeIcon icon={faStar} size="xs" />

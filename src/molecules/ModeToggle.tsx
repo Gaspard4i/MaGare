@@ -1,5 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faTrain, faAnglesRight, faAnglesLeft} from '@fortawesome/free-solid-svg-icons'
+import {useTranslation} from 'react-i18next'
 import type {BoardMode} from '../utils/modeColors'
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default function ModeToggle({mode, onChange}: Props) {
+    const {t} = useTranslation()
     return (
         <div className="flex rounded-2xl overflow-hidden border border-base-300 bg-base-100 shadow-sm">
             <button
@@ -19,7 +21,7 @@ export default function ModeToggle({mode, onChange}: Props) {
                 }`}
             >
                 <FontAwesomeIcon icon={faTrain} size="sm"/>
-                <span>Departs</span>
+                <span>{t('board.departures')}</span>
                 <FontAwesomeIcon icon={faAnglesRight} size="sm"/>
             </button>
             <div className="w-px bg-base-300 my-2"/>
@@ -32,7 +34,7 @@ export default function ModeToggle({mode, onChange}: Props) {
                 }`}
             >
                 <FontAwesomeIcon icon={faAnglesLeft} size="sm"/>
-                <span>Arrivees</span>
+                <span>{t('board.arrivals')}</span>
                 <FontAwesomeIcon icon={faTrain} className="scale-x-[-1]" size="sm"/>
             </button>
         </div>

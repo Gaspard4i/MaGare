@@ -1,4 +1,5 @@
 import { formatStopTime } from '../services/apiService'
+import { useTranslation } from 'react-i18next'
 import type { VehicleJourneyStopTime } from '../types'
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function StopItem({ stop, isCurrent, isPast, isFirst, isLast, variant = 'light' }: Props) {
+  const { t } = useTranslation()
   const arr = formatStopTime(stop.arrival_time)
   const dep = formatStopTime(stop.departure_time)
   const skipped = stop.skipped_stop
@@ -54,7 +56,7 @@ export default function StopItem({ stop, isCurrent, isPast, isFirst, isLast, var
           {stop.stop_point.name}
         </div>
         {stop.stop_point.platform_code && (
-          <div className={`text-xs ${voieColor}`}>Voie {stop.stop_point.platform_code}</div>
+          <div className={`text-xs ${voieColor}`}>{t('detail.track')} {stop.stop_point.platform_code}</div>
         )}
       </div>
 

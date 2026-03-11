@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes, faHeart, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import { searchStations } from '../services/apiService'
 import { getDestFavPlaces, isDestFavorite, toggleDestFavorite } from '../services/storageService'
 import type { Place } from '../types'
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function DestinationSearch({ stationId, destination, onDestinationChange, mode }: Props) {
+  const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Place[]>([])
   const [favs, setFavs] = useState<Place[]>([])
@@ -84,7 +86,7 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
     loadFavs()
   }
 
-  const label = mode === 'departures' ? 'Vers' : 'Depuis'
+  const label = mode === 'departures' ? t('search.to') : t('search.from')
 
   // Compact pill when destination is set
   if (destination) {
@@ -125,7 +127,7 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
             value={query}
             onChange={e => setQuery(e.target.value)}
             onFocus={handleFocus}
-            placeholder={mode === 'departures' ? 'Filtrer par destination...' : 'Filtrer par provenance...'}
+            placeholder={mode === 'departures' ? t('search.filterDest') : t('search.filterProv')}
             className="w-full pl-6 pr-6 py-1 rounded-md bg-white/10 border border-white/15 placeholder-white/30 focus:outline-none focus:border-white/40 transition-all text-xs"
             style={{ color: 'inherit' }}
           />
@@ -146,7 +148,7 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
           <div className="flex items-center gap-1.5 px-4 py-2 border-b border-base-300 bg-base-200">
             <FontAwesomeIcon icon={faHeart} className="text-error" size="xs" />
             <span className="text-base-content/50 text-xs font-semibold uppercase tracking-wider">
-              {mode === 'departures' ? 'Destinations favorites' : 'Provenances favorites'}
+              {mode === 'departures' ? t('search.favDest') : t('search.favProv')}
             </span>
           </div>
           {favs.map((p, i) => {
@@ -184,7 +186,7 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
 
       {showEmpty && (
         <div className="absolute top-full left-0 right-0 mt-0 bg-base-100 border border-base-300 rounded-b-xl p-3 text-base-content/50 text-xs text-center z-50">
-          Aucune gare trouvee
+          {t('search.noResult')}
         </div>
       )}
     </div>

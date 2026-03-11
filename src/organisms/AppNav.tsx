@@ -3,6 +3,7 @@
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faFileAlt, faHeart, faGear, faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import SearchBar from './SearchBar'
 import FavoriteButton from '../atoms/FavoriteButton'
 import { isFavorite, toggleFavorite, setDefaultStation, getDefaultStation } from '../services/storageService'
@@ -11,11 +12,11 @@ import type { BoardMode } from '../utils/modeColors'
 import { modeHeaderBg } from '../utils/modeColors'
 import { useState } from 'react'
 
-const NAV_TABS: { id: TabId; label: string; icon: any }[] = [
-  { id: 'timetables', label: 'Horaires',  icon: faClock },
-  { id: 'bulletin',   label: 'Bulletin',  icon: faFileAlt },
-  { id: 'favorites',  label: 'Favoris',   icon: faHeart },
-  { id: 'settings',   label: 'Reglages',  icon: faGear },
+const NAV_TABS: { id: TabId; labelKey: string; icon: any }[] = [
+  { id: 'timetables', labelKey: 'nav.timetables', icon: faClock },
+  { id: 'bulletin',   labelKey: 'nav.bulletin',   icon: faFileAlt },
+  { id: 'favorites',  labelKey: 'nav.favorites',  icon: faHeart },
+  { id: 'settings',   labelKey: 'nav.settings',   icon: faGear },
 ]
 
 interface Props {
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export default function AppNav({ active, onChange, selected, onSelect, boardMode }: Props) {
+  const { t } = useTranslation()
   const id   = selected?.stop_area?.id ?? selected?.id ?? ''
   const name = selected?.stop_area?.name ?? selected?.name ?? ''
 
@@ -76,7 +78,7 @@ export default function AppNav({ active, onChange, selected, onSelect, boardMode
               }`}
             >
               <FontAwesomeIcon icon={tab.icon} size="sm" />
-              <span className="hidden xl:inline">{tab.label}</span>
+              <span className="hidden xl:inline">{t(tab.labelKey)}</span>
             </button>
           ))}
         </nav>
@@ -89,7 +91,7 @@ export default function AppNav({ active, onChange, selected, onSelect, boardMode
           <span className="font-semibold text-sm truncate flex-1">{name}</span>
           <button
             onClick={handleDef}
-            title={isDef ? 'Retirer du defaut' : 'Definir comme gare par defaut'}
+            title={isDef ? t('default.unset') : t('default.set')}
             className={`p-1.5 rounded-lg transition-colors ${isDef ? 'text-accent' : 'text-primary-content/30 hover:text-accent'}`}
           >
             <FontAwesomeIcon icon={faStar} size="xs" />

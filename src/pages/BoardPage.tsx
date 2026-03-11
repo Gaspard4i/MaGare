@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesRight, faAnglesLeft, faTrain } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import TrainBoard from '../organisms/TrainBoard'
 import DefaultStationBanner from '../organisms/DefaultStationBanner'
 import ModeToggle from '../molecules/ModeToggle'
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export default function BoardPage({ station, boardMode, onSelect, onBoardModeChange }: Props) {
+  const { t } = useTranslation()
   const mobileBoardBg = boardMode === 'departures' ? 'bg-primary' : 'bg-secondary'
 
   if (!station) {
@@ -46,7 +48,7 @@ export default function BoardPage({ station, boardMode, onSelect, onBoardModeCha
         {/* Departures */}
         <div className="flex-1 flex flex-col bg-primary overflow-hidden rounded-tl-2xl board-departures">
           <div className="flex items-center gap-2 px-6 py-3 board-title-bar text-primary-content shrink-0">
-            <span className="font-bold text-sm tracking-wide uppercase">Departs</span>
+            <span className="font-bold text-sm tracking-wide uppercase">{t('board.departures')}</span>
             <FontAwesomeIcon icon={faTrain} size="sm" />
             <FontAwesomeIcon icon={faAnglesRight} size="sm" />
           </div>
@@ -60,7 +62,7 @@ export default function BoardPage({ station, boardMode, onSelect, onBoardModeCha
           <div className="flex items-center gap-2 px-6 py-3 board-title-bar text-secondary-content shrink-0">
             <FontAwesomeIcon icon={faAnglesLeft} size="sm" />
             <FontAwesomeIcon icon={faTrain} className="scale-x-[-1]" size="sm" />
-            <span className="font-bold text-sm tracking-wide uppercase">Arrivees</span>
+            <span className="font-bold text-sm tracking-wide uppercase">{t('board.arrivals')}</span>
           </div>
           <div className="flex-1 min-h-0 flex flex-col">
             <TrainBoard station={station} mode="arrivals" />

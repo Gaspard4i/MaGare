@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import BulletinForm from '../organisms/BulletinForm'
 
 export default function BulletinPage() {
+  const { t } = useTranslation()
   return (
     <div className="flex-1 overflow-y-auto pb-20 bg-base-200">
       {/* Page header */}
@@ -12,8 +14,8 @@ export default function BulletinPage() {
             <FontAwesomeIcon icon={faFileAlt} />
           </div>
           <div>
-            <h1 className="font-bold text-base lg:text-lg">Bulletin de retard</h1>
-            <p className="text-primary-content/50 text-xs mt-0.5">Justificatif officiel SNCF</p>
+            <h1 className="font-bold text-base lg:text-lg">{t('bulletin.title')}</h1>
+            <p className="text-primary-content/50 text-xs mt-0.5">{t('bulletin.subtitle')}</p>
           </div>
         </div>
       </div>

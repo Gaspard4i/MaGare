@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   isFav: boolean
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function FavoriteButton({ isFav, onClick, size = 'sm', variant = 'dark' }: Props) {
+  const { t } = useTranslation()
   const inactiveColor = variant === 'light'
     ? 'text-base-content/25 hover:text-fav'
     : 'text-primary-content/30 hover:text-fav'
@@ -18,7 +20,7 @@ export default function FavoriteButton({ isFav, onClick, size = 'sm', variant = 
     <button
       onClick={onClick}
       className={`transition-colors shrink-0 p-1 ${isFav ? 'text-fav' : inactiveColor}`}
-      aria-label={isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+      aria-label={isFav ? t('favorites.remove') : t('favorites.add')}
     >
       <FontAwesomeIcon icon={isFav ? faHeartSolid : faHeartRegular} size={size} />
     </button>

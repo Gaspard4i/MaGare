@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import { getDefaultStation } from '../services/storageService'
 import type { Place } from '../types'
 import { useEffect, useState } from 'react'
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function DefaultStationBanner({ onSelect }: Props) {
+  const { t } = useTranslation()
   const [defaultStation, setDefault] = useState<Place | null>(null)
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export default function DefaultStationBanner({ onSelect }: Props) {
         <div className="mb-5">
           <div className="flex items-center gap-2 mb-2">
             <FontAwesomeIcon icon={faLocationDot} className="text-primary" size="xs" />
-            <span className="text-base-content/50 text-xs font-semibold uppercase tracking-wider">Gare par defaut</span>
+            <span className="text-base-content/50 text-xs font-semibold uppercase tracking-wider">{t('default.title')}</span>
           </div>
           <button
             onClick={() => onSelect(defaultStation)}
@@ -39,8 +41,8 @@ export default function DefaultStationBanner({ onSelect }: Props) {
       ) : (
         <div className="mb-5 p-4 bg-base-100 border border-base-300 rounded-xl text-center shadow-sm">
           <FontAwesomeIcon icon={faLocationDot} className="text-base-content/20 mb-2" size="lg" />
-          <p className="text-base-content/60 text-sm font-medium">Aucune gare par defaut</p>
-          <p className="text-base-content/35 text-xs mt-1">Recherchez une gare et definissez-la comme defaut depuis l'en-tete</p>
+          <p className="text-base-content/60 text-sm font-medium">{t('default.empty')}</p>
+          <p className="text-base-content/35 text-xs mt-1">{t('default.emptyHint')}</p>
         </div>
       )}
 
@@ -48,7 +50,7 @@ export default function DefaultStationBanner({ onSelect }: Props) {
       <div className="flex items-start gap-2 p-3 bg-base-100 border border-base-300 rounded-lg shadow-sm">
         <FontAwesomeIcon icon={faStar} className="text-accent mt-0.5" size="xs" />
         <p className="text-base-content/50 text-xs leading-relaxed">
-          Ajoutez des gares en favoris via le <span className="text-error">&#9829;</span> pour les retrouver rapidement dans la recherche.
+          {t('default.favTip')}
         </p>
       </div>
     </div>

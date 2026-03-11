@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import SearchInput from '../molecules/SearchInput'
 import StationResultItem from '../molecules/StationResultItem'
 import { searchStations } from '../services/apiService'
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function SearchBar({ onSelect}: Props) {
+  const { t } = useTranslation()
   const [query, setQuery]       = useState('')
   const [results, setResults]   = useState<Place[]>([])
   const [favs, setFavs]         = useState<Place[]>([])
@@ -94,7 +96,7 @@ export default function SearchBar({ onSelect}: Props) {
         onChange={setQuery}
         onClear={handleClear}
         loading={loading}
-        placeholder="Rechercher une gare..."
+        placeholder={t('search.placeholder')}
         onFocus={handleFocus}
       />
 
@@ -103,7 +105,7 @@ export default function SearchBar({ onSelect}: Props) {
         <div className="absolute top-full left-0 right-0 mt-1 bg-base-100 border border-base-300 rounded-xl shadow-2xl z-50 overflow-hidden max-h-72 overflow-y-auto">
           <div className="flex items-center gap-1.5 px-4 py-2 border-b border-base-300 bg-base-200">
             <FontAwesomeIcon icon={faHeart} className="text-error" size="xs" />
-            <span className="text-base-content/50 text-xs font-semibold uppercase tracking-wider">Mes gares favorites</span>
+            <span className="text-base-content/50 text-xs font-semibold uppercase tracking-wider">{t('search.favorites')}</span>
           </div>
           {favs.map((p, i) => (
             <StationResultItem
@@ -133,7 +135,7 @@ export default function SearchBar({ onSelect}: Props) {
       {/* No results */}
       {showEmpty && (
         <div className="absolute top-full left-0 right-0 mt-1 bg-base-100 border border-base-300 rounded-xl p-4 text-base-content/50 text-sm text-center z-50">
-          Aucune gare trouvee
+          {t('search.noResult')}
         </div>
       )}
     </div>

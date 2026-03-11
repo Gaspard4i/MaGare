@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSync, faTrain, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import TrainRow from './TrainRow'
 import TrainDetailSheet from './TrainDetailSheet'
 import DestinationSearch from '../molecules/DestinationSearch'
@@ -19,6 +20,7 @@ const normalize = (s: string) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim()
 
 export default function TrainBoard({ station, mode }: Props) {
+  const { t } = useTranslation()
   const [trains, setTrains] = useState<Train[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -86,12 +88,12 @@ export default function TrainBoard({ station, mode }: Props) {
       setTrains(data)
       setLastUpdate(new Date())
     } catch (e: any) {
-      setError(e.message ?? 'Erreur de chargement')
+      setError(e.message ?? t('board.loadError'))
       setTrains([])
     } finally {
       setLoading(false)
     }
-  }, [station, mode, date, time])
+  }, [station, mode, date, time, t])
 
   useEffect(() => {
     fetchTrains()
@@ -106,13 +108,8 @@ export default function TrainBoard({ station, mode }: Props) {
 
     return trains.filter(train => {
       const info = train.display_informations
-      if (mode === 'departures') {
-        const dir = normalize(info?.direction ?? '')
-        return dir.includes(destName) || destName.includes(dir)
-      } else {
-        const dir = normalize(info?.direction ?? '')
-        return dir.includes(destName) || destName.includes(dir)
-      }
+      const dir = normalize(info?.direction ?? '')
+      return dir.includes(destName) || destName.includes(dir)
     })
   }, [trains, destination, mode])
 
@@ -120,7 +117,7 @@ export default function TrainBoard({ station, mode }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-20" style={{ color: 'var(--board-text, var(--color-primary-content))' }}>
         <FontAwesomeIcon icon={faTrain} size="3x" className="mb-4 opacity-30" />
-        <p className="text-lg font-medium opacity-50">Selectionnez une gare</p>
+        <p className="text-lg font-medium opacity-50">{t('board.selectStation')}</p>
       </div>
     )
   }
@@ -138,7 +135,7 @@ export default function TrainBoard({ station, mode }: Props) {
             type="date"
             value={date}
             onChange={e => setDate(e.target.value)}
-            title="Molette pour changer le jour"
+            title={t('board.scrollDay')}
             className="bg-white/10 text-xs border border-white/15 rounded px-2 py-1 focus:outline-none focus:border-white/40 cursor-ns-resize [color-scheme:dark] transition-colors"
             style={textStyle}
           />
@@ -147,7 +144,7 @@ export default function TrainBoard({ station, mode }: Props) {
             type="time"
             value={time}
             onChange={e => setTime(e.target.value)}
-            title="Molette pour changer l'heure (pas de 5 min)"
+            title={t('board.scrollTime')}
             className="bg-white/10 text-xs border border-white/15 rounded px-2 py-1 focus:outline-none focus:border-white/40 cursor-ns-resize [color-scheme:dark] transition-colors"
             style={textStyle}
           />
@@ -179,10 +176,10 @@ export default function TrainBoard({ station, mode }: Props) {
       {/* ── Column headers (darkest shade) ── */}
       <div className="flex items-center gap-2 px-4 py-1.5 board-col-header text-xs font-semibold uppercase tracking-widest shrink-0" style={{ ...textStyle, opacity: 0.5 }}>
         <div className="w-5" />
-        <div className="w-13 text-center">Heure</div>
-        <div className="w-16">Train</div>
-        <div className="flex-1">{mode === 'departures' ? 'Destination' : 'Provenance'}</div>
-        <div className="shrink-0 text-right pr-5">Etat</div>
+        <div className="w-13 text-center">{t('board.time')}</div>
+        <div className="w-16">{t('board.train')}</div>
+        <div className="flex-1">{mode === 'departures' ? t('board.destination') : t('board.provenance')}</div>
+        <div className="shrink-0 text-right pr-5">{t('board.status')}</div>
       </div>
 
       {/* ── Scrollable train list (main bg) ── */}
@@ -190,7 +187,7 @@ export default function TrainBoard({ station, mode }: Props) {
         {loading && trains.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-14">
             <span className="loading loading-dots loading-md opacity-60" />
-            <p className="opacity-40 text-sm mt-3">Chargement...</p>
+            <p className="opacity-40 text-sm mt-3">{t('board.loading')}</p>
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-14 px-6">
@@ -200,13 +197,13 @@ export default function TrainBoard({ station, mode }: Props) {
               onClick={fetchTrains}
               className="mt-4 px-5 py-2 bg-white/15 rounded-lg text-sm font-semibold hover:bg-white/25 transition-all"
             >
-              Reessayer
+              {t('board.retry')}
             </button>
           </div>
         ) : filteredTrains.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-14 opacity-30">
             <FontAwesomeIcon icon={faTrain} size="2x" className="mb-3" />
-            <p className="text-sm">{destination ? 'Aucun train pour cette destination' : 'Aucun train trouve'}</p>
+            <p className="text-sm">{destination ? t('board.noTrainDest') : t('board.noTrain')}</p>
           </div>
         ) : (
           <div>

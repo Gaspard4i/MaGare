@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faExternalLinkAlt, faFileAlt, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 import StopItem from '../molecules/StopItem'
 import TrainTypeBadge from '../atoms/TrainTypeBadge'
 import StatusBadge from '../atoms/StatusBadge'
@@ -29,6 +30,7 @@ const parseApiDt = (s?: string): Date | null => {
 const CLOSE_THRESHOLD = 100
 
 export default function TrainDetailSheet({ train, type, onClose }: Props) {
+  const { t } = useTranslation()
   const [journey, setJourney] = useState<VehicleJourney | null>(null)
   const [loadingJourney, setLoadingJourney] = useState(false)
   const [dragY, setDragY] = useState(0)
@@ -47,7 +49,6 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
       .finally(() => setLoadingJourney(false))
   }, [train])
 
-  // ── Drag/swipe to close ──
   const handleDragStart = useCallback((clientY: number) => {
     setIsDragging(true)
     dragStartY.current = clientY
@@ -69,7 +70,6 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
     setDragY(0)
   }, [isDragging, dragY, onClose])
 
-  // Touch events
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     handleDragStart(e.touches[0].clientY)
   }, [handleDragStart])
@@ -80,7 +80,6 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
     handleDragEnd()
   }, [handleDragEnd])
 
-  // Mouse events
   const onMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     handleDragStart(e.clientY)
@@ -98,7 +97,6 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
     }
   }, [isDragging, handleDragMove, handleDragEnd])
 
-  // Reset drag on close
   useEffect(() => {
     if (!train) setDragY(0)
   }, [train])
@@ -187,7 +185,7 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
               <StatusBadge delay={delay} cancelled={cancelled} />
               {track && (
                 <span className="bg-primary-content text-primary font-bold text-xs px-2 py-0.5 rounded" style={!isFuture ? { backgroundColor: 'var(--color-primary)', color: 'var(--color-primary-content)' } : undefined}>
-                  Voie {track}
+                  {t('detail.track')} {track}
                 </span>
               )}
               {info?.network && (
@@ -219,8 +217,8 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
             >
               <FontAwesomeIcon icon={faFileAlt} className={isFuture ? 'text-primary-content/60 shrink-0' : 'text-info shrink-0'} size="sm" />
               <div className="flex-1">
-                <div className={`${isFuture ? 'text-primary-content' : 'text-base-content'} text-xs font-semibold`}>Obtenir un justificatif de retard</div>
-                <div className={`${isFuture ? 'text-primary-content/45' : 'text-base-content/45'} text-xs`}>Via le site TER SNCF</div>
+                <div className={`${isFuture ? 'text-primary-content' : 'text-base-content'} text-xs font-semibold`}>{t('detail.delayJustification')}</div>
+                <div className={`${isFuture ? 'text-primary-content/45' : 'text-base-content/45'} text-xs`}>{t('detail.viaTer')}</div>
               </div>
               <FontAwesomeIcon icon={faExternalLinkAlt} className={`${textFaint}`} size="xs" />
             </a>
@@ -230,7 +228,7 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
         {/* Stops list */}
         <div className="flex-1 overflow-y-auto mt-3 pb-6">
           <div className="px-4 mb-2 flex items-center justify-between">
-            <span className={`${textMuted} text-xs font-semibold uppercase tracking-wider`}>Arrets desservis</span>
+            <span className={`${textMuted} text-xs font-semibold uppercase tracking-wider`}>{t('detail.stops')}</span>
             {loadingJourney && <span className={`loading loading-spinner loading-xs ${textDimmed}`} />}
           </div>
 
@@ -250,7 +248,7 @@ export default function TrainDetailSheet({ train, type, onClose }: Props) {
             </div>
           ) : !loadingJourney && (
             <div className={`px-4 py-6 ${textFaint} text-sm text-center`}>
-              Detail des arrets non disponible
+              {t('detail.stopsUnavailable')}
             </div>
           )}
         </div>

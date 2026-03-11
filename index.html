@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ma Gare Sncf</title>
+    <script>
+      // Decode redirect from 404.html (GitHub Pages SPA support)
+      (function() {
+        var q = window.location.search;
+        var m = q.match(/[?&]p=([^&]+)/);
+        if (m) {
+          var path = decodeURIComponent(m[1]);
+          window.history.replaceState(null, '', '/MaGare' + path + window.location.hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

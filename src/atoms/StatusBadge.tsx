@@ -7,20 +7,20 @@ export default function StatusBadge({ delay, cancelled }: Props) {
   if (cancelled) return (
     <span className="badge badge-error gap-1 text-xs font-semibold py-3 px-2 rounded-full">
       <FontAwesomeIcon icon={faXmark} size="xs" />
-      Supprimé
+      Supprime
     </span>
   )
   if (delay > 0) return (
     <span className="badge badge-warning gap-1 text-xs font-semibold py-3 px-2 rounded-full">
-      <FontAwesomeIcon icon={faCircleExclamation} size="lg" />
+      <FontAwesomeIcon icon={faCircleExclamation} size="xs" />
       +{delay} min
-
     </span>
   )
+  // "A l'heure" — discreet, not attention-grabbing
   return (
-    <span className="badge badge-success gap-1 text-xs font-semibold py-3 px-2 rounded-full">
+    <span className="flex items-center gap-1 text-2xs opacity-40">
       <FontAwesomeIcon icon={faCheck} size="xs" />
-      À l'heure
+      A l'heure
     </span>
   )
 }

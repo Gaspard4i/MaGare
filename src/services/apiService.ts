@@ -138,29 +138,47 @@ export const getFallbackColors = (type: TrainTypeKey, lineCode?: string): { bg: 
   }
 }
 
-/** Distinct color palette for TER lines, keyed by line code prefix letter */
+/**
+ * Official TER line colors (from regional network maps).
+ * API doesn't provide these — hardcoded from SNCF/regional branding.
+ */
 const TER_LINE_COLORS: Record<string, { bg: string; text: string }> = {
-  C: { bg: '#2E7D32', text: '#FFFFFF' },  // vert
-  K: { bg: '#1565C0', text: '#FFFFFF' },  // bleu
-  A: { bg: '#C62828', text: '#FFFFFF' },  // rouge
-  B: { bg: '#6A1B9A', text: '#FFFFFF' },  // violet
-  D: { bg: '#E65100', text: '#FFFFFF' },  // orange
-  E: { bg: '#00838F', text: '#FFFFFF' },  // teal
-  F: { bg: '#AD1457', text: '#FFFFFF' },  // rose
-  G: { bg: '#4527A0', text: '#FFFFFF' },  // indigo
-  H: { bg: '#558B2F', text: '#FFFFFF' },  // vert lime
-  J: { bg: '#D84315', text: '#FFFFFF' },  // rouge-orange
-  L: { bg: '#00695C', text: '#FFFFFF' },  // vert foncé
-  M: { bg: '#283593', text: '#FFFFFF' },  // bleu foncé
-  N: { bg: '#9E9D24', text: '#FFFFFF' },  // olive
-  P: { bg: '#5D4037', text: '#FFFFFF' },  // marron
-  R: { bg: '#0277BD', text: '#FFFFFF' },  // bleu ciel
-  S: { bg: '#7B1FA2', text: '#FFFFFF' },  // pourpre
-  T: { bg: '#EF6C00', text: '#FFFFFF' },  // ambre
-  V: { bg: '#00897B', text: '#FFFFFF' },  // vert menthe
+  // ── TER Hauts-de-France ──
+  C41: { bg: '#0054A6', text: '#FFFFFF' },  // bleu
+  C42: { bg: '#009B3A', text: '#FFFFFF' },  // vert
+  C52: { bg: '#E2001A', text: '#FFFFFF' },  // rouge
+  K10: { bg: '#F39200', text: '#FFFFFF' },  // orange
+  K44: { bg: '#E5007D', text: '#FFFFFF' },  // rose/magenta
+  K52: { bg: '#00A3E0', text: '#FFFFFF' },  // bleu clair
+  K54: { bg: '#8B6AAE', text: '#FFFFFF' },  // violet
+  K56: { bg: '#95C11F', text: '#FFFFFF' },  // vert clair
+  // ── TER AURA ──
+  C28: { bg: '#0054A6', text: '#FFFFFF' },  // bleu
+  C13: { bg: '#E2001A', text: '#FFFFFF' },  // rouge
+  C15: { bg: '#009B3A', text: '#FFFFFF' },  // vert
+  // ── TER Nouvelle-Aquitaine ──
+  A60: { bg: '#E2001A', text: '#FFFFFF' },  // rouge
+  A62: { bg: '#0054A6', text: '#FFFFFF' },  // bleu
+  // ── TER Grand Est ──
+  L1:  { bg: '#E2001A', text: '#FFFFFF' },  // rouge
+  L2:  { bg: '#0054A6', text: '#FFFFFF' },  // bleu
+  L3:  { bg: '#009B3A', text: '#FFFFFF' },  // vert
+  L4:  { bg: '#F39200', text: '#FFFFFF' },  // orange
+  L5:  { bg: '#E5007D', text: '#FFFFFF' },  // rose
+}
+
+/** Deterministic color from line code when not in the known map */
+function hashLineColor(code: string): { bg: string; text: string } {
+  const PALETTE = [
+    '#0054A6', '#E2001A', '#009B3A', '#F39200', '#E5007D',
+    '#00A3E0', '#8B6AAE', '#95C11F', '#5D4037', '#00838F',
+    '#C62828', '#283593', '#EF6C00', '#AD1457', '#00695C',
+  ]
+  let h = 0
+  for (let i = 0; i < code.length; i++) h = (h * 31 + code.charCodeAt(i)) | 0
+  return { bg: PALETTE[Math.abs(h) % PALETTE.length], text: '#FFFFFF' }
 }
 
 function getTerLineColor(lineCode: string): { bg: string; text: string } {
-  const prefix = lineCode.charAt(0).toUpperCase()
-  return TER_LINE_COLORS[prefix] ?? { bg: '#154734', text: '#FFFFFF' }
+  return TER_LINE_COLORS[lineCode] ?? hashLineColor(lineCode)
 }

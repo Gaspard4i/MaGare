@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock, faFileAlt, faHeart, faGear, faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
 import SearchBar from './SearchBar'
+import LanguageSwitcher from '../molecules/LanguageSwitcher'
 import FavoriteButton from '../atoms/FavoriteButton'
 import { isFavorite, toggleFavorite, setDefaultStation, getDefaultStation } from '../services/storageService'
 import type { Place, TabId } from '../types'
@@ -67,6 +68,7 @@ export default function AppNav({ active, onChange, selected, onSelect, boardMode
 
         {/* Nav tabs */}
         <nav className="flex items-center gap-1 ml-auto">
+          <LanguageSwitcher variant="compact" />
           {NAV_TABS.map(tab => (
             <button
               key={tab.id}

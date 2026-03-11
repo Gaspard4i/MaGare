@@ -3,6 +3,7 @@ import { faMoon, faSun, faGear, faTrash } from '@fortawesome/free-solid-svg-icon
 import { useTranslation } from 'react-i18next'
 import { getTheme, setTheme } from '../services/storageService'
 import { useState } from 'react'
+import LanguageSwitcher from '../molecules/LanguageSwitcher'
 
 const CREDITS = [
   { nameKey: 'Gaspard Catry', roleKey: 'credits.developer', url: 'https://github.com/Gaspard4i' },
@@ -53,6 +54,9 @@ export default function SettingsPage() {
 
       <div className="max-w-7xl mx-auto p-4 lg:p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 max-w-3xl">
+
+          {/* Language switcher */}
+          <LanguageSwitcher variant="card" />
 
           {/* Theme toggle */}
           <div className="card bg-base-100 shadow-sm border border-base-300 hover:shadow-md transition-shadow">

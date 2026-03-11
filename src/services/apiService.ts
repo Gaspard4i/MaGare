@@ -114,14 +114,18 @@ export const getPhysicalMode = (physical?: string): PhysicalModeKey => {
 }
 
 /** Fallback colors when the API doesn't provide color/text_color */
-export const getFallbackColors = (type: TrainTypeKey): { bg: string; text: string } => {
+export const getFallbackColors = (type: TrainTypeKey, lineCode?: string): { bg: string; text: string } => {
+  // TER lines: generate a distinct color per line code
+  if (type === 'TER' && lineCode) {
+    return getTerLineColor(lineCode)
+  }
   switch (type) {
     case 'TGV':
     case 'INOUI':    return { bg: '#9B2743', text: '#FFFFFF' }  // lie-de-vin INOUI
     case 'THALYS':   return { bg: '#E2001A', text: '#FFFFFF' }  // rouge SNCF
     case 'OUIGO':    return { bg: '#0084D4', text: '#FFFFFF' }  // céruléen OUIGO
     case 'IC':       return { bg: '#DC582A', text: '#FFFFFF' }  // ocre intercités
-    case 'TER':      return { bg: '#154734', text: '#FFFFFF' }  // forêt TER
+    case 'TER':      return { bg: '#154734', text: '#FFFFFF' }  // forêt TER (no line code)
     case 'EUROSTAR': return { bg: '#FFD700', text: '#1A1A1A' }  // doré Eurostar
     case 'LYRIA':    return { bg: '#C72B2D', text: '#FFFFFF' }  // rouge Lyria
     case 'TN':       return { bg: '#6558B1', text: '#FFFFFF' }  // lavande Transilien
@@ -132,4 +136,31 @@ export const getFallbackColors = (type: TrainTypeKey): { bg: string; text: strin
     case 'BOAT':     return { bg: '#0084D4', text: '#FFFFFF' }  // bleu
     default:         return { bg: '#4A4A4A', text: '#FFFFFF' }  // gris neutre
   }
+}
+
+/** Distinct color palette for TER lines, keyed by line code prefix letter */
+const TER_LINE_COLORS: Record<string, { bg: string; text: string }> = {
+  C: { bg: '#2E7D32', text: '#FFFFFF' },  // vert
+  K: { bg: '#1565C0', text: '#FFFFFF' },  // bleu
+  A: { bg: '#C62828', text: '#FFFFFF' },  // rouge
+  B: { bg: '#6A1B9A', text: '#FFFFFF' },  // violet
+  D: { bg: '#E65100', text: '#FFFFFF' },  // orange
+  E: { bg: '#00838F', text: '#FFFFFF' },  // teal
+  F: { bg: '#AD1457', text: '#FFFFFF' },  // rose
+  G: { bg: '#4527A0', text: '#FFFFFF' },  // indigo
+  H: { bg: '#558B2F', text: '#FFFFFF' },  // vert lime
+  J: { bg: '#D84315', text: '#FFFFFF' },  // rouge-orange
+  L: { bg: '#00695C', text: '#FFFFFF' },  // vert foncé
+  M: { bg: '#283593', text: '#FFFFFF' },  // bleu foncé
+  N: { bg: '#9E9D24', text: '#FFFFFF' },  // olive
+  P: { bg: '#5D4037', text: '#FFFFFF' },  // marron
+  R: { bg: '#0277BD', text: '#FFFFFF' },  // bleu ciel
+  S: { bg: '#7B1FA2', text: '#FFFFFF' },  // pourpre
+  T: { bg: '#EF6C00', text: '#FFFFFF' },  // ambre
+  V: { bg: '#00897B', text: '#FFFFFF' },  // vert menthe
+}
+
+function getTerLineColor(lineCode: string): { bg: string; text: string } {
+  const prefix = lineCode.charAt(0).toUpperCase()
+  return TER_LINE_COLORS[prefix] ?? { bg: '#154734', text: '#FFFFFF' }
 }

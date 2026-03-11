@@ -27,7 +27,7 @@ export default function TrainTypeBadge({ type, lineCode, modeName, number, apiCo
         color: apiTextColor ? `#${apiTextColor}` : '#FFFFFF',
       }
     } else {
-      const fb = getFallbackColors(type)
+      const fb = getFallbackColors(type, lineCode)
       badgeStyle = { backgroundColor: fb.bg, color: fb.text }
     }
   }
@@ -58,7 +58,7 @@ export default function TrainTypeBadge({ type, lineCode, modeName, number, apiCo
       )}
       {/* Train number */}
       {number && (
-        <span className="opacity-30 text-2xs truncate max-w-16 leading-none">{number}</span>
+        <span className="opacity-55 text-2xs truncate max-w-16 leading-none">{number}</span>
       )}
     </div>
   )

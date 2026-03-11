@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { HashRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
 import AppNav    from './organisms/AppNav'
 import Header    from './organisms/Header'
 import BottomNav from './organisms/BottomNav'
@@ -84,8 +84,8 @@ function AppShell() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename="/MaGare">
       <AppShell />
-    </HashRouter>
+    </BrowserRouter>
   )
 }

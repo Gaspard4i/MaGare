@@ -3,6 +3,21 @@ import { faMoon, faSun, faGear, faTrash } from '@fortawesome/free-solid-svg-icon
 import { getTheme, setTheme } from '../services/storageService'
 import { useState } from 'react'
 
+const CREDITS = [
+  { name: 'Gaspard Catry', role: 'Developpeur', url: 'https://github.com/Gaspard4i' },
+  { name: 'Claude (Anthropic)', role: 'Assistant IA', url: 'https://anthropic.com' },
+  { name: 'SNCF — API Navitia', role: 'Donnees temps reel', url: 'https://www.digital.sncf.com/startup/api' },
+  { name: 'React', role: 'Librairie UI', url: 'https://react.dev' },
+  { name: 'Vite', role: 'Bundler / serveur dev', url: 'https://vite.dev' },
+  { name: 'Tailwind CSS', role: 'Framework CSS', url: 'https://tailwindcss.com' },
+  { name: 'DaisyUI', role: 'Composants UI / themes', url: 'https://daisyui.com' },
+  { name: 'Font Awesome', role: 'Icones', url: 'https://fontawesome.com' },
+  { name: 'React Router', role: 'Routing SPA', url: 'https://reactrouter.com' },
+  { name: 'TypeScript', role: 'Typage statique', url: 'https://www.typescriptlang.org' },
+  { name: 'LZ-String', role: 'Compression URL', url: 'https://github.com/pieroxy/lz-string' },
+  { name: 'GitHub Pages', role: 'Hebergement', url: 'https://pages.github.com' },
+]
+
 export default function SettingsPage() {
   const [isDark, setIsDark] = useState(() => getTheme() === 'sncf-dark')
 
@@ -72,6 +87,10 @@ export default function SettingsPage() {
                 <span className="text-base-content/60">Donnees</span>
                 <span className="font-semibold text-base-content">API SNCF Navitia</span>
               </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-base-content/60">Licence</span>
+                <span className="font-semibold text-base-content">MIT</span>
+              </div>
             </div>
           </div>
 
@@ -86,6 +105,31 @@ export default function SettingsPage() {
             <FontAwesomeIcon icon={faTrash} />
             Effacer favoris et donnees locales
           </button>
+        </div>
+
+        {/* Credits */}
+        <div className="mt-8 max-w-3xl">
+          <h2 className="text-base-content font-bold text-sm mb-3">Credits & licences</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {CREDITS.map(c => (
+              <a
+                key={c.name}
+                href={c.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow"
+              >
+                <div className="card-body p-3">
+                  <div className="font-semibold text-sm text-base-content leading-tight">{c.name}</div>
+                  <div className="text-2xs text-base-content/50">{c.role}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+          <p className="text-2xs text-base-content/30 mt-4">
+            Ce projet est distribue sous licence MIT. Les donnees ferroviaires sont fournies par l'API SNCF (Navitia).
+            Les marques citees appartiennent a leurs proprietaires respectifs.
+          </p>
         </div>
       </div>
     </div>

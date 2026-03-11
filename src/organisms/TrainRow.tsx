@@ -88,6 +88,8 @@ export default function TrainRow({ train, type, onClick }: Props) {
           modeName={modeName}
           lineCode={lineCode}
           number={number}
+          apiColor={info?.color || undefined}
+          apiTextColor={info?.text_color || undefined}
         />
       </div>
 

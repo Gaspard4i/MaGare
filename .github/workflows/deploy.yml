@@ -30,6 +30,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          VITE_SNCF_TOKEN: ${{ secrets.VITE_SNCF_TOKEN }}
 
       - uses: actions/configure-pages@v5
 

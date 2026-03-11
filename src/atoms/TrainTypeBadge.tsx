@@ -1,4 +1,4 @@
-import { getTrainBadgeClass, type TrainTypeKey } from '../services/apiService'
+import { getFallbackColors, type TrainTypeKey } from '../services/apiService'
 
 interface Props {
   type: TrainTypeKey
@@ -8,11 +8,29 @@ interface Props {
   modeName?: string
   /** Train number: 843281, ECCO15, 7829 */
   number?: string
+  /** API-provided color (hex without #) */
+  apiColor?: string
+  /** API-provided text_color (hex without #) */
+  apiTextColor?: string
 }
 
-export default function TrainTypeBadge({ type, lineCode, modeName, number }: Props) {
-  // For short line codes (C41, K52, B, D, K, H, R...) show a badge
+export default function TrainTypeBadge({ type, lineCode, modeName, number, apiColor, apiTextColor }: Props) {
   const hasLineCode = lineCode && lineCode.length <= 5
+
+  // Use API colors when available, fallback to hardcoded per-type colors
+  const hasBadge = hasLineCode || modeName
+  let badgeStyle: React.CSSProperties | undefined
+  if (hasBadge) {
+    if (apiColor) {
+      badgeStyle = {
+        backgroundColor: `#${apiColor}`,
+        color: apiTextColor ? `#${apiTextColor}` : '#FFFFFF',
+      }
+    } else {
+      const fb = getFallbackColors(type)
+      badgeStyle = { backgroundColor: fb.bg, color: fb.text }
+    }
+  }
 
   return (
     <div className="flex flex-col items-start gap-0.5">
@@ -20,10 +38,22 @@ export default function TrainTypeBadge({ type, lineCode, modeName, number }: Pro
       {modeName && (
         <span className="opacity-50 text-2xs font-semibold uppercase leading-none truncate max-w-20">{modeName}</span>
       )}
-      {/* Line code badge: C41, RER B, etc. */}
-      {hasLineCode && (
-        <span className={`badge badge-sm ${getTrainBadgeClass(type)} font-bold tracking-wide`}>
+      {/* Line code badge with API or fallback colors */}
+      {hasLineCode && badgeStyle && (
+        <span
+          className="badge badge-sm font-bold tracking-wide"
+          style={badgeStyle}
+        >
           {lineCode}
+        </span>
+      )}
+      {/* For modes without line code but with a type, show type as badge */}
+      {!hasLineCode && modeName && badgeStyle && (
+        <span
+          className="badge badge-sm font-bold tracking-wide text-2xs"
+          style={badgeStyle}
+        >
+          {type}
         </span>
       )}
       {/* Train number */}

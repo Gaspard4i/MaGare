@@ -1,7 +1,7 @@
 import type { Place, Train, VehicleJourney } from '../types'
 
 const BASE = 'https://api.sncf.com/v1/coverage/sncf'
-const TOKEN = '9a7f7f9d-9438-413d-a56e-1f0750fc25b9'
+const TOKEN = import.meta.env.VITE_SNCF_TOKEN ?? ''
 
 const auth = () => ({ Authorization: 'Basic ' + btoa(TOKEN + ':') })
 
@@ -113,23 +113,23 @@ export const getPhysicalMode = (physical?: string): PhysicalModeKey => {
   return 'train'
 }
 
-/** Returns a DaisyUI badge variant class for the given train type */
-export const getTrainBadgeClass = (type: TrainTypeKey): string => {
+/** Fallback colors when the API doesn't provide color/text_color */
+export const getFallbackColors = (type: TrainTypeKey): { bg: string; text: string } => {
   switch (type) {
     case 'TGV':
-    case 'INOUI':
-    case 'THALYS':   return 'badge-error'      // rouge SNCF
-    case 'OUIGO':    return 'badge-info'        // céruléen
-    case 'IC':       return 'badge-warning'     // ocre / orange
-    case 'TER':      return 'badge-secondary'   // forêt
-    case 'EUROSTAR': return 'badge-warning'     // safran / doré
-    case 'LYRIA':
-    case 'TN':
-    case 'RER':
-    case 'METRO':    return 'badge-neutral'     // sombre
-    case 'BUS':      return 'badge-success'     // menthe
-    case 'TRAM':     return 'badge-accent'      // rouge SNCF (closest)
-    case 'BOAT':     return 'badge-info'        // bleu
-    default:         return 'badge-neutral'
+    case 'INOUI':    return { bg: '#9B2743', text: '#FFFFFF' }  // lie-de-vin INOUI
+    case 'THALYS':   return { bg: '#E2001A', text: '#FFFFFF' }  // rouge SNCF
+    case 'OUIGO':    return { bg: '#0084D4', text: '#FFFFFF' }  // céruléen OUIGO
+    case 'IC':       return { bg: '#DC582A', text: '#FFFFFF' }  // ocre intercités
+    case 'TER':      return { bg: '#154734', text: '#FFFFFF' }  // forêt TER
+    case 'EUROSTAR': return { bg: '#FFD700', text: '#1A1A1A' }  // doré Eurostar
+    case 'LYRIA':    return { bg: '#C72B2D', text: '#FFFFFF' }  // rouge Lyria
+    case 'TN':       return { bg: '#6558B1', text: '#FFFFFF' }  // lavande Transilien
+    case 'RER':      return { bg: '#003865', text: '#FFFFFF' }  // cobalt RER
+    case 'METRO':    return { bg: '#00205B', text: '#FFFFFF' }  // bleu-marine
+    case 'BUS':      return { bg: '#00B388', text: '#FFFFFF' }  // menthe
+    case 'TRAM':     return { bg: '#407F7F', text: '#FFFFFF' }  // oracle
+    case 'BOAT':     return { bg: '#0084D4', text: '#FFFFFF' }  // bleu
+    default:         return { bg: '#4A4A4A', text: '#FFFFFF' }  // gris neutre
   }
 }

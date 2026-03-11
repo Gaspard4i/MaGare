@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSync, faTrain, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import TrainRow from './TrainRow'
@@ -30,6 +30,44 @@ export default function TrainBoard({ station, mode }: Props) {
 
   const stationId = station?.stop_area?.id ?? station?.id ?? ''
   const boardClass = mode === 'departures' ? 'board-departures' : 'board-arrivals'
+
+  const timeRef = useRef<HTMLInputElement>(null)
+  const dateRef = useRef<HTMLInputElement>(null)
+  const timeVal = useRef(time)
+  const dateVal = useRef(date)
+  timeVal.current = time
+  dateVal.current = date
+
+  // Wheel handler for time input
+  useEffect(() => {
+    const el = timeRef.current
+    if (!el) return
+    const handler = (e: WheelEvent) => {
+      e.preventDefault()
+      const [h, m] = timeVal.current.split(':').map(Number)
+      const step = 5
+      const total = ((h * 60 + m) + (e.deltaY < 0 ? step : -step) + 1440) % 1440
+      const nh = Math.floor(total / 60)
+      const nm = total % 60
+      setTime(`${String(nh).padStart(2, '0')}:${String(nm).padStart(2, '0')}`)
+    }
+    el.addEventListener('wheel', handler, { passive: false })
+    return () => el.removeEventListener('wheel', handler)
+  }, [])
+
+  // Wheel handler for date input
+  useEffect(() => {
+    const el = dateRef.current
+    if (!el) return
+    const handler = (e: WheelEvent) => {
+      e.preventDefault()
+      const d = new Date(dateVal.current + 'T00:00:00')
+      d.setDate(d.getDate() + (e.deltaY < 0 ? 1 : -1))
+      setDate(d.toISOString().split('T')[0])
+    }
+    el.addEventListener('wheel', handler, { passive: false })
+    return () => el.removeEventListener('wheel', handler)
+  }, [])
 
   useEffect(() => {
     setDestination(null)
@@ -72,10 +110,8 @@ export default function TrainBoard({ station, mode }: Props) {
         const dir = normalize(info?.direction ?? '')
         return dir.includes(destName) || destName.includes(dir)
       } else {
-        const origin = normalize(info?.name ?? '')
         const dir = normalize(info?.direction ?? '')
-        return origin.includes(destName) || destName.includes(origin)
-          || dir.includes(destName) || destName.includes(dir)
+        return dir.includes(destName) || destName.includes(dir)
       }
     })
   }, [trains, destination, mode])
@@ -95,25 +131,29 @@ export default function TrainBoard({ station, mode }: Props) {
     <div className={`w-full flex flex-col h-full min-h-0 ${boardClass}`}>
       {/* ── Toolbar (dark shade) ── */}
       <div className="shrink-0 board-toolbar">
-        {/* Date/time + refresh — compact single row */}
+        {/* Date/time + refresh */}
         <div className="flex items-center gap-2 px-3 py-1.5" style={textStyle}>
           <input
+            ref={dateRef}
             type="date"
             value={date}
             onChange={e => setDate(e.target.value)}
+            title="Molette pour changer le jour"
             className="bg-white/10 text-xs border border-white/15 rounded px-2 py-1 focus:outline-none focus:border-white/40 cursor-ns-resize [color-scheme:dark] transition-colors"
             style={textStyle}
           />
           <input
+            ref={timeRef}
             type="time"
             value={time}
             onChange={e => setTime(e.target.value)}
+            title="Molette pour changer l'heure (pas de 5 min)"
             className="bg-white/10 text-xs border border-white/15 rounded px-2 py-1 focus:outline-none focus:border-white/40 cursor-ns-resize [color-scheme:dark] transition-colors"
             style={textStyle}
           />
           <div className="flex items-center gap-1.5 ml-auto">
             {lastUpdate && (
-              <span className="text-[10px] opacity-40">
+              <span className="text-2xs opacity-40">
                 {lastUpdate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
               </span>
             )}
@@ -140,7 +180,7 @@ export default function TrainBoard({ station, mode }: Props) {
       <div className="flex items-center gap-2 px-4 py-1.5 board-col-header text-xs font-semibold uppercase tracking-widest shrink-0" style={{ ...textStyle, opacity: 0.5 }}>
         <div className="w-5" />
         <div className="w-13 text-center">Heure</div>
-        <div className="w-14">Train</div>
+        <div className="w-16">Train</div>
         <div className="flex-1">{mode === 'departures' ? 'Destination' : 'Provenance'}</div>
         <div className="shrink-0 text-right pr-5">Etat</div>
       </div>

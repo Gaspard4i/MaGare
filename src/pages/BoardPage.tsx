@@ -33,8 +33,8 @@ export default function BoardPage({ station, boardMode, onSelect, onBoardModeCha
         <div className="px-4 pt-4 pb-2 max-w-3xl mx-auto w-full shrink-0">
           <ModeToggle mode={boardMode} onChange={onBoardModeChange} />
         </div>
-        <div className="flex-1 min-h-0 px-2 pb-20">
-          <div className={`${mobileBoardBg} rounded-xl shadow-sm mx-auto overflow-hidden max-w-3xl h-full flex flex-col transition-colors duration-300`}>
+        <div className="flex-1 min-h-0">
+          <div className={`${mobileBoardBg} mx-auto overflow-hidden max-w-3xl h-full flex flex-col transition-colors duration-300`}>
             <TrainBoard station={station} mode={boardMode} />
           </div>
         </div>

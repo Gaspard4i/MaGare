@@ -94,7 +94,7 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
     return (
       <div className="flex items-center gap-2 px-3 py-1.5 border-t border-white/10" style={{ color: 'var(--board-text)' }}>
         <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" className="opacity-40 shrink-0" />
-        <span className="opacity-50 text-[10px] font-semibold uppercase tracking-wider shrink-0">{label}</span>
+        <span className="opacity-50 text-2xs font-semibold uppercase tracking-wider shrink-0">{label}</span>
         <span className="text-xs font-semibold truncate flex-1">{destName}</span>
         <button
           onClick={e => handleToggleFav(e, destination)}
@@ -117,7 +117,7 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
     <div ref={wrapRef} className="relative" style={{ color: 'var(--board-text)' }}>
       <div className="flex items-center gap-2 px-3 py-1.5 border-t border-white/10">
         <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" className="opacity-40 shrink-0" />
-        <span className="opacity-50 text-[10px] font-semibold uppercase tracking-wider shrink-0">{label}</span>
+        <span className="opacity-50 text-2xs font-semibold uppercase tracking-wider shrink-0">{label}</span>
         <div className="relative flex-1 flex items-center">
           <FontAwesomeIcon icon={faSearch} className="absolute left-2 z-10 pointer-events-none opacity-30" size="xs" />
           <input

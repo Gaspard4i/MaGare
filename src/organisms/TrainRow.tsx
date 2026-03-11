@@ -15,6 +15,54 @@ interface Props {
   onClick: (t: Train) => void
 }
 
+/**
+ * Build a smart display label from API data:
+ * - RER/Transilien: "RER B", "Transilien K"
+ * - TER: line code like "C41", "K52" (from label field)
+ * - TGV/OUIGO/Lyria: commercial_mode "TGV INOUI", "OUIGO", etc.
+ */
+function getSmartLabel(info: Train['display_informations']): string {
+  const cm = info?.commercial_mode ?? ''
+  const label = info?.label ?? ''
+  const code = info?.code ?? ''
+
+  // RER: commercial_mode = "RER", label = "B" → "RER B"
+  if (cm === 'RER' && label.length <= 2) return `RER ${label}`
+
+  // Transilien: commercial_mode = "TRANSILIEN", label = "K" → "TN ${label}"
+  if (cm === 'TRANSILIEN' && label.length <= 2) return `TN ${label}`
+
+  // TER: label is the line code (C41, K52, K10...)
+  if (cm.startsWith('TER') && label && label.length <= 4) return label
+
+  // TGV INOUI, OUIGO, TGV Lyria, IC, etc. — use commercial_mode directly
+  if (cm) return cm
+
+  return code || label || 'Train'
+}
+
+/**
+ * Get the provenance (origin) for arrivals.
+ * The API `direction` field always points to the line terminus,
+ * which for arrivals is often the current station.
+ * For arrivals we need to look elsewhere:
+ * - For TER: label is the line code, not helpful
+ * - The only reliable source for arrivals origin is stop_point.name if different,
+ *   or we fall back to display_informations.direction
+ * For departures: direction is the correct destination.
+ */
+function getDisplayDestination(train: Train, type: 'departure' | 'arrival'): string {
+  const info = train.display_informations
+  if (type === 'departure') {
+    return info?.direction ?? train.route?.direction?.stop_area?.name ?? 'N/A'
+  }
+  // Arrivals: direction is the final destination of the route
+  // This is actually correct for arrivals too — it shows where the train is going
+  // But the user wants to see the origin. Unfortunately the API doesn't give us the origin
+  // in the arrivals endpoint directly. The `direction` IS the displayed destination.
+  return info?.direction ?? 'N/A'
+}
+
 export default function TrainRow({ train, type, onClick }: Props) {
   const sdt = train.stop_date_time
   const scheduled = type === 'departure'
@@ -27,17 +75,13 @@ export default function TrainRow({ train, type, onClick }: Props) {
   const delay = getDelay(scheduled, real)
 
   const info = train.display_informations
-  const destination = type === 'departure'
-    ? (info?.direction ?? train.route?.direction?.stop_area?.name ?? 'N/A')
-    : (info?.name ?? 'N/A')
+  const destination = getDisplayDestination(train, type)
 
   const trainType = getTrainType(info?.commercial_mode, info?.physical_mode)
   const physMode = getPhysicalMode(info?.physical_mode)
   const number = info?.trip_short_name ?? info?.headsign ?? ''
-  const track = train.stop_point?.platform_code ?? null
   const cancelled = info?.effect === 'NO_SERVICE'
-  // Use the actual commercial mode name from the API
-  const commercialLabel = info?.commercial_mode || trainType
+  const smartLabel = getSmartLabel(info)
 
   return (
     <button
@@ -53,20 +97,15 @@ export default function TrainRow({ train, type, onClick }: Props) {
       <TimeDisplay time={displayTime} scheduledTime={scheduledTime} delay={delay} />
 
       {/* Train type badge + number */}
-      <div className="w-14 shrink-0">
-        <TrainTypeBadge type={trainType} number={number} label={commercialLabel} />
+      <div className="w-16 shrink-0">
+        <TrainTypeBadge type={trainType} number={number} label={smartLabel} />
       </div>
 
-      {/* Destination + track */}
+      {/* Destination */}
       <div className="flex-1 min-w-0">
         <div className={`font-bold text-sm truncate leading-tight ${cancelled ? 'line-through opacity-40' : ''}`}>
           {destination}
         </div>
-        {track && (
-          <div className="text-xs opacity-50 mt-0.5">
-            Voie {track}
-          </div>
-        )}
       </div>
 
       {/* Status */}

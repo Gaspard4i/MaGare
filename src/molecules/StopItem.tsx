@@ -43,7 +43,7 @@ export default function StopItem({ stop, isCurrent, isPast, isFirst, isLast, var
           skipped ? dotSkipped :
           dotNormal
         }`} />
-        {!isLast && <div className={`w-px flex-1 min-h-[12px] ${lineBg}`} />}
+        {!isLast && <div className={`w-px flex-1 min-h-3 ${lineBg}`} />}
       </div>
 
       {/* Stop name */}

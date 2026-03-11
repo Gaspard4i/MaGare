@@ -135,9 +135,15 @@ body {
 
 /* Focus ring accessible */
 *:focus-visible {
-  outline: 2px solid var(--color-info);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 0.125rem solid var(--color-info);
+  outline-offset: 0.125rem;
+  border-radius: 0.25rem;
+}
+
+/* Utility: extra small text */
+.text-2xs {
+  font-size: 0.625rem;
+  line-height: 0.875rem;
 }
 
 /* ── Onglets Departs / Arrivees ──────────────────────────────────────────── */
@@ -145,12 +151,12 @@ body {
 .tab-departures {
   background-color: var(--color-primary);
   color: white;
-  border-radius: 8px 8px 0 0;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 .tab-arrivals {
   background-color: var(--color-secondary);
   color: white;
-  border-radius: 8px 8px 0 0;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 
 /* ── Heure du train — jaune vif sur fond colore ─────────────────────────── */
@@ -176,15 +182,15 @@ body {
 .badge-delayed {
   background-color: var(--color-warning);
   color: white;
-  border-radius: 9999px;
-  padding: 2px 8px;
+  border-radius: 9999rem;
+  padding: 0.125rem 0.5rem;
   font-weight: 600;
 }
 .badge-cancelled {
   background-color: var(--color-error);
   color: white;
-  border-radius: 9999px;
-  padding: 2px 8px;
+  border-radius: 9999rem;
+  padding: 0.125rem 0.5rem;
   font-weight: 600;
 }
 
@@ -193,7 +199,7 @@ body {
 .track-badge {
   background-color: var(--voie-bg);
   color: black;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   text-align: center;
   font-weight: bold;
 }

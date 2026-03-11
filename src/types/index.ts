@@ -53,6 +53,7 @@ export interface DisplayInformations {
     text_color?: string
     effect?: string
     label?: string
+    code?: string
     description?: string
     message?: string
 }

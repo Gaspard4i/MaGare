@@ -38,7 +38,7 @@ function AppShell() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-base-200 flex flex-col">
+    <div className="h-screen bg-base-200 flex flex-col overflow-hidden">
 
       {/* ── Desktop top navbar ─────────────────────────────── */}
       <AppNav
@@ -58,7 +58,7 @@ function AppShell() {
       />
 
       {/* ── Main content (full width, pages manage their own layout) */}
-      <main className="flex-1 flex flex-col min-h-0">
+      <main className="flex-1 flex flex-col min-h-0 overflow-hidden">
         <Routes>
           <Route path="/" element={<Navigate to="/horaires" replace />} />
           <Route path="/horaires" element={

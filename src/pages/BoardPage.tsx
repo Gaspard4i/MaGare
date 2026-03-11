@@ -19,50 +19,50 @@ export default function BoardPage({ station, boardMode, onSelect, onBoardModeCha
 
   if (!station) {
     return (
-      <div className={`flex-1 min-h-screen ${modeBoardBg(boardMode)}`}>
+      <div className={`flex-1 ${modeBoardBg(boardMode)}`}>
         <DefaultStationBanner onSelect={onSelect} />
       </div>
     )
   }
 
   return (
-    <div className="flex-1 min-h-screen bg-base-200">
+    <div className="flex-1 flex flex-col bg-base-200 overflow-hidden">
 
       {/* -- Mobile / Tablet: single board with mode toggle --------------- */}
-      <div className="xl:hidden flex flex-col h-full">
-        <div className="px-4 pt-4 pb-2 max-w-3xl mx-auto w-full">
+      <div className="xl:hidden flex flex-col flex-1 min-h-0">
+        <div className="px-4 pt-4 pb-2 max-w-3xl mx-auto w-full shrink-0">
           <ModeToggle mode={boardMode} onChange={onBoardModeChange} />
         </div>
-        <div className="flex-1 overflow-auto pb-20">
-          <div className={`${mobileBoardBg} rounded-xl shadow-sm mx-auto mb-4 overflow-hidden max-w-3xl transition-colors duration-300`}>
+        <div className="flex-1 min-h-0 px-2 pb-20">
+          <div className={`${mobileBoardBg} rounded-xl shadow-sm mx-auto overflow-hidden max-w-3xl h-full flex flex-col transition-colors duration-300`}>
             <TrainBoard station={station} mode={boardMode} />
           </div>
         </div>
       </div>
 
       {/* -- Desktop xl+: two boards side by side ------------------------ */}
-      <div className="hidden xl:flex min-h-screen max-w-7xl mx-auto gap-6 p-6">
+      <div className="hidden xl:flex flex-1 min-h-0 max-w-7xl mx-auto gap-6 p-6 w-full">
 
         {/* Departures */}
         <div className="flex-1 flex flex-col bg-primary rounded-xl shadow-sm overflow-hidden max-w-[800px]">
-          <div className="flex items-center gap-2 px-6 py-3 bg-black/15 text-primary-content">
+          <div className="flex items-center gap-2 px-6 py-3 bg-black/15 text-primary-content shrink-0">
             <span className="font-bold text-sm tracking-wide uppercase">Departs</span>
             <FontAwesomeIcon icon={faTrain} size="sm" />
             <FontAwesomeIcon icon={faAnglesRight} size="sm" />
           </div>
-          <div className="flex-1 overflow-auto">
+          <div className="flex-1 min-h-0 flex flex-col">
             <TrainBoard station={station} mode="departures" />
           </div>
         </div>
 
         {/* Arrivals */}
         <div className="flex-1 flex flex-col bg-secondary rounded-xl shadow-sm overflow-hidden max-w-[800px]">
-          <div className="flex items-center gap-2 px-6 py-3 bg-black/15 text-secondary-content">
+          <div className="flex items-center gap-2 px-6 py-3 bg-black/15 text-secondary-content shrink-0">
             <FontAwesomeIcon icon={faAnglesLeft} size="sm" />
             <FontAwesomeIcon icon={faTrain} className="scale-x-[-1]" size="sm" />
             <span className="font-bold text-sm tracking-wide uppercase">Arrivees</span>
           </div>
-          <div className="flex-1 overflow-auto">
+          <div className="flex-1 min-h-0 flex flex-col">
             <TrainBoard station={station} mode="arrivals" />
           </div>
         </div>

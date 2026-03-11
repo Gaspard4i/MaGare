@@ -16,7 +16,6 @@ interface Props {
 const todayStr = () => new Date().toISOString().split('T')[0]
 const nowStr = () => new Date().toTimeString().substring(0, 5)
 
-/** Normalize a station name for matching (lowercase, remove accents, trim parenthetical city) */
 const normalize = (s: string) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim()
 
@@ -32,7 +31,6 @@ export default function TrainBoard({ station, mode }: Props) {
 
   const stationId = station?.stop_area?.id ?? station?.id ?? ''
 
-  // Reset destination when station changes
   useEffect(() => {
     setDestination(null)
   }, [stationId])
@@ -63,7 +61,6 @@ export default function TrainBoard({ station, mode }: Props) {
     return () => clearInterval(iv)
   }, [fetchTrains])
 
-  // Filter trains by destination
   const filteredTrains = useMemo(() => {
     if (!destination) return trains
     const destName = normalize(destination.stop_area?.name ?? destination.name ?? '')
@@ -72,11 +69,9 @@ export default function TrainBoard({ station, mode }: Props) {
     return trains.filter(train => {
       const info = train.display_informations
       if (mode === 'departures') {
-        // Match direction field against destination
         const dir = normalize(info?.direction ?? '')
         return dir.includes(destName) || destName.includes(dir)
       } else {
-        // For arrivals, match the origin/provenance (name field or direction)
         const origin = normalize(info?.name ?? '')
         const dir = normalize(info?.direction ?? '')
         return origin.includes(destName) || destName.includes(origin)
@@ -95,80 +90,85 @@ export default function TrainBoard({ station, mode }: Props) {
   }
 
   return (
-    <div className="w-full">
-      {/* Status bar + refresh */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-primary-content/10">
-        <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-          <span className="text-primary-content/40 text-xs">
-            {lastUpdate
-              ? `Mis a jour ${lastUpdate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`
-              : 'Chargement...'}
-          </span>
-        </div>
-        <button
-          onClick={fetchTrains}
-          disabled={loading}
-          className="text-primary-content/30 hover:text-primary-content transition-colors p-1 rounded-lg hover:bg-primary-content/10"
-        >
-          <FontAwesomeIcon icon={faSync} size="xs" className={loading ? 'animate-spin' : ''} />
-        </button>
-      </div>
-
-      {/* Time picker */}
-      <TimePicker date={date} time={time} onDateChange={setDate} onTimeChange={setTime} />
-
-      {/* Destination search */}
-      <DestinationSearch
-        stationId={stationId}
-        destination={destination}
-        onDestinationChange={setDestination}
-        mode={mode}
-      />
-
-      {/* Column headers */}
-      <div className="flex items-center gap-2 px-4 py-1.5 bg-black/10 border-b border-primary-content/10 text-primary-content/40 text-xs font-semibold uppercase tracking-widest">
-        <div className="w-5" />
-        <div className="w-13 text-center">Heure</div>
-        <div className="w-14">Train</div>
-        <div className="flex-1">{mode === 'departures' ? 'Destination' : 'Provenance'}</div>
-        <div className="shrink-0 text-right pr-5">Etat</div>
-      </div>
-
-      {/* Content */}
-      {loading && trains.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-14">
-          <span className="loading loading-dots loading-md text-primary-content/60" />
-          <p className="text-primary-content/40 text-sm mt-3">Chargement...</p>
-        </div>
-      ) : error ? (
-        <div className="flex flex-col items-center justify-center py-14 px-6">
-          <FontAwesomeIcon icon={faExclamationCircle} size="2x" className="text-primary-content mb-3" />
-          <p className="text-primary-content/70 text-sm text-center">{error}</p>
+    <div className="w-full flex flex-col h-full min-h-0">
+      {/* ── Fixed header section ── */}
+      <div className="shrink-0">
+        {/* Status bar + refresh */}
+        <div className="flex items-center justify-between px-4 py-2 border-b border-primary-content/10">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+            <span className="text-primary-content/40 text-xs">
+              {lastUpdate
+                ? `Mis a jour ${lastUpdate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`
+                : 'Chargement...'}
+            </span>
+          </div>
           <button
             onClick={fetchTrains}
-            className="mt-4 px-5 py-2 bg-primary-content/20 text-primary-content rounded-lg text-sm font-semibold hover:bg-primary-content/30 transition-all"
+            disabled={loading}
+            className="text-primary-content/30 hover:text-primary-content transition-colors p-1 rounded-lg hover:bg-primary-content/10"
           >
-            Reessayer
+            <FontAwesomeIcon icon={faSync} size="xs" className={loading ? 'animate-spin' : ''} />
           </button>
         </div>
-      ) : filteredTrains.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-14 text-primary-content/30">
-          <FontAwesomeIcon icon={faTrain} size="2x" className="mb-3" />
-          <p className="text-sm">{destination ? 'Aucun train pour cette destination' : 'Aucun train trouve'}</p>
+
+        {/* Time picker */}
+        <TimePicker date={date} time={time} onDateChange={setDate} onTimeChange={setTime} />
+
+        {/* Destination search */}
+        <DestinationSearch
+          stationId={stationId}
+          destination={destination}
+          onDestinationChange={setDestination}
+          mode={mode}
+        />
+
+        {/* Column headers */}
+        <div className="flex items-center gap-2 px-4 py-1.5 bg-black/10 border-b border-primary-content/10 text-primary-content/40 text-xs font-semibold uppercase tracking-widest">
+          <div className="w-5" />
+          <div className="w-13 text-center">Heure</div>
+          <div className="w-14">Train</div>
+          <div className="flex-1">{mode === 'departures' ? 'Destination' : 'Provenance'}</div>
+          <div className="shrink-0 text-right pr-5">Etat</div>
         </div>
-      ) : (
-        <div>
-          {filteredTrains.map((train, idx) => (
-            <TrainRow
-              key={`${train.stop_date_time?.departure_date_time}-${idx}`}
-              train={train}
-              type={mode === 'departures' ? 'departure' : 'arrival'}
-              onClick={setSelected}
-            />
-          ))}
-        </div>
-      )}
+      </div>
+
+      {/* ── Scrollable train list ── */}
+      <div className="flex-1 overflow-y-auto min-h-0">
+        {loading && trains.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-14">
+            <span className="loading loading-dots loading-md text-primary-content/60" />
+            <p className="text-primary-content/40 text-sm mt-3">Chargement...</p>
+          </div>
+        ) : error ? (
+          <div className="flex flex-col items-center justify-center py-14 px-6">
+            <FontAwesomeIcon icon={faExclamationCircle} size="2x" className="text-primary-content mb-3" />
+            <p className="text-primary-content/70 text-sm text-center">{error}</p>
+            <button
+              onClick={fetchTrains}
+              className="mt-4 px-5 py-2 bg-primary-content/20 text-primary-content rounded-lg text-sm font-semibold hover:bg-primary-content/30 transition-all"
+            >
+              Reessayer
+            </button>
+          </div>
+        ) : filteredTrains.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-14 text-primary-content/30">
+            <FontAwesomeIcon icon={faTrain} size="2x" className="mb-3" />
+            <p className="text-sm">{destination ? 'Aucun train pour cette destination' : 'Aucun train trouve'}</p>
+          </div>
+        ) : (
+          <div>
+            {filteredTrains.map((train, idx) => (
+              <TrainRow
+                key={`${train.stop_date_time?.departure_date_time}-${idx}`}
+                train={train}
+                type={mode === 'departures' ? 'departure' : 'arrival'}
+                onClick={setSelected}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
       <TrainDetailSheet
         train={selected}

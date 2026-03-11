@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "timetables": "",
+    "bulletin": "",
+    "favorites": "",
+    "settings": ""
+  },
+  "board": {
+    "departures": "",
+    "arrivals": "",
+    "time": "",
+    "train": "",
+    "destination": "",
+    "provenance": "",
+    "status": "",
+    "loading": "",
+    "retry": "",
+    "loadError": "",
+    "noTrainDest": "",
+    "noTrain": "",
+    "selectStation": "",
+    "scrollDay": "",
+    "scrollTime": ""
+  },
+  "search": {
+    "placeholder": "",
+    "favorites": "",
+    "noResult": "",
+    "filterDest": "",
+    "filterProv": "",
+    "favDest": "",
+    "favProv": "",
+    "to": "",
+    "from": ""
+  },
+  "detail": {
+    "track": "",
+    "delayJustification": "",
+    "viaTer": "",
+    "stops": "",
+    "stopsUnavailable": ""
+  },
+  "status": {
+    "cancelled": "",
+    "onTime": "",
+    "delayed": ""
+  },
+  "favorites": {
+    "title": "",
+    "station_one": "",
+    "station_other": "",
+    "empty": "",
+    "emptyHint": "",
+    "add": "",
+    "remove": ""
+  },
+  "default": {
+    "title": "",
+    "empty": "",
+    "emptyHint": "",
+    "favTip": "",
+    "set": "",
+    "unset": ""
+  },
+  "bulletin": {
+    "title": "",
+    "subtitle": "",
+    "region": "",
+    "departure": "",
+    "arrival": "",
+    "departurePlaceholder": "",
+    "arrivalPlaceholder": "",
+    "swap": "",
+    "date": "",
+    "slot": "",
+    "and": "",
+    "urlGenerated": "",
+    "open": "",
+    "openHint": ""
+  },
+  "settings": {
+    "title": "",
+    "subtitle": "",
+    "darkTheme": "",
+    "darkThemeHint": "",
+    "about": "",
+    "version": "",
+    "data": "",
+    "license": "",
+    "clearData": "",
+    "credits": "",
+    "legalNotice": ""
+  },
+  "credits": {
+    "developer": "",
+    "aiAssistant": "",
+    "realtimeData": "",
+    "uiLibrary": "",
+    "bundler": "",
+    "cssFramework": "",
+    "uiComponents": "",
+    "icons": "",
+    "routing": "",
+    "typing": "",
+    "compression": "",
+    "hosting": ""
+  },
+  "time": {
+    "from": ""
+  },
+  "error": {
+    "api": ""
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "timetables": "Fahrpläne",
+    "bulletin": "Bulletin",
+    "favorites": "Favoriten",
+    "settings": "Einstellungen"
+  },
+  "board": {
+    "departures": "Abfahrten",
+    "arrivals": "Ankünfte",
+    "time": "Uhrzeit",
+    "train": "Zug",
+    "destination": "Ziel",
+    "provenance": "Herkunft",
+    "status": "Status",
+    "loading": "Lade...",
+    "retry": "Erneut versuchen",
+    "loadError": "Ladefehler",
+    "noTrainDest": "Kein Zug für dieses Ziel",
+    "noTrain": "Kein Zug gefunden",
+    "selectStation": "Bahnhof auswählen",
+    "scrollDay": "Scrollrad zum Ändern des Tages",
+    "scrollTime": "Scrollrad zum Ändern der Uhrzeit (nicht in 5-Minuten-Schritten)"
+  },
+  "search": {
+    "placeholder": "Bahnhof suchen...",
+    "favorites": "Meine bevorzugten Bahnhöfe",
+    "noResult": "Kein Bahnhof gefunden",
+    "filterDest": "Nach Ziel filtern...",
+    "filterProv": "Nach Herkunft filtern...",
+    "favDest": "Bevorzugte Ziele",
+    "favProv": "Bevorzugte Herkünfte",
+    "to": "Nach",
+    "from": "Von"
+  },
+  "detail": {
+    "track": "Gleis",
+    "delayJustification": "Verspätungsnachweis erhalten",
+    "viaTer": "Über die TER SNCF-Website",
+    "stops": "Bediente Haltestellen",
+    "stopsUnavailable": "Detailinformationen zu Haltestellen nicht verfügbar"
+  },
+  "status": {
+    "cancelled": "Gelöscht",
+    "onTime": "Pünktlich",
+    "delayed": "+{{minutes}} min"
+  },
+  "favorites": {
+    "title": "Meine Favoriten",
+    "station_one": "{{count}} Bahnhof gespeichert",
+    "station_other": "{{count}} Bahnhöfe gespeichert",
+    "empty": "Kein bevorzugter Bahnhof",
+    "emptyHint": "Drücke auf ♥, um einen Bahnhof hinzuzufügen",
+    "add": "Zu Favoriten hinzufügen",
+    "remove": "Aus Favoriten entfernen"
+  },
+  "default": {
+    "title": "Standardbahnhof",
+    "empty": "Kein Standardbahnhof",
+    "emptyHint": "Suche nach einem Bahnhof und lege ihn im Header als Standard fest",
+    "favTip": "Füge Bahnhöfe über ♥ zu deinen Favoriten hinzu, um sie schnell in der Suche zu finden.",
+    "set": "Als Standardbahnhof festlegen",
+    "unset": "Vom Standard entfernen"
+  },
+  "bulletin": {
+    "title": "Verspätungsbericht",
+    "subtitle": "Offizielle SNCF-Bescheinigung",
+    "region": "TER-Region",
+    "departure": "Abfahrtsbahnhof",
+    "arrival": "Ankunftsbahnhof",
+    "departurePlaceholder": "Paris Saint-Lazare...",
+    "arrivalPlaceholder": "Lille-Flandres...",
+    "swap": "Abfahrt und Ankunft vertauschen",
+    "date": "Reisedatum",
+    "slot": "Ankunftszeitfenster",
+    "and": "und",
+    "urlGenerated": "Generierte URL:",
+    "open": "Verspätungsbericht öffnen",
+    "openHint": "Leitet zur offiziellen TER SNCF-Website mit Ihrer vorab ausgefüllten Fahrt weiter"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "subtitle": "Passen Sie die Anwendung an",
+    "darkTheme": "Dunkles Thema",
+    "darkThemeHint": "Schwarzer Hintergrund, ideal bei schwachem Licht",
+    "about": "Über",
+    "version": "Version",
+    "data": "Daten",
+    "license": "Lizenz",
+    "clearData": "Favoriten und lokale Daten löschen",
+    "credits": "Credits & Lizenzen",
+    "legalNotice": "Dieses Projekt wird unter der MIT-Lizenz vertrieben. Die Bahndaten werden von der SNCF-API (Navitia) bereitgestellt. Die genannten Marken gehören ihren jeweiligen Eigentümern."
+  },
+  "credits": {
+    "developer": "Entwickler",
+    "aiAssistant": "KI-Assistent",
+    "realtimeData": "Echtzeitdaten",
+    "uiLibrary": "UI-Bibliothek",
+    "bundler": "Bundler / Dev-Server",
+    "cssFramework": "CSS-Framework",
+    "uiComponents": "UI-Komponenten / Themes",
+    "icons": "Icons",
+    "routing": "SPA-Routing",
+    "typing": "Statische Typisierung",
+    "compression": "URL-Komprimierung",
+    "hosting": "Hosting"
+  },
+  "time": {
+    "from": "Ab"
+  },
+  "error": {
+    "api": "API-Fehler ({{status}})"
+  }
+}

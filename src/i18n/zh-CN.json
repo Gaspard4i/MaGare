@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "timetables": "时刻表",
+    "bulletin": "公告",
+    "favorites": "收藏夹",
+    "settings": "设置"
+  },
+  "board": {
+    "departures": "出发",
+    "arrivals": "到达",
+    "time": "时间",
+    "train": "列车",
+    "destination": "目的地",
+    "provenance": "出发地",
+    "status": "状态",
+    "loading": "加载中...",
+    "retry": "重试",
+    "loadError": "加载错误",
+    "noTrainDest": "此目的地无列车",
+    "noTrain": "未找到列车",
+    "selectStation": "选择车站",
+    "scrollDay": "滚动滚轮切换日期",
+    "scrollTime": "滚动滚轮切换时间（非5分钟间隔）"
+  },
+  "search": {
+    "placeholder": "搜索车站...",
+    "favorites": "我收藏的车站",
+    "noResult": "未找到车站",
+    "filterDest": "按目的地筛选...",
+    "filterProv": "按出发地筛选...",
+    "favDest": "收藏的目的地",
+    "favProv": "收藏的出发地",
+    "to": "至",
+    "from": "从"
+  },
+  "detail": {
+    "track": "站台",
+    "delayJustification": "获取晚点证明",
+    "viaTer": "通过 SNCF TER 网站",
+    "stops": "停靠站",
+    "stopsUnavailable": "停靠站详情不可用"
+  },
+  "status": {
+    "cancelled": "删除",
+    "onTime": "准点",
+    "delayed": "+{{minutes}} 分钟"
+  },
+  "favorites": {
+    "title": "我的收藏夹",
+    "station_one": "{{count}} 个已保存车站",
+    "station_other": "{{count}} 个已保存车站",
+    "empty": "无收藏车站",
+    "emptyHint": "点击 ♥ 添加车站",
+    "add": "添加到收藏夹",
+    "remove": "从收藏夹中移除"
+  },
+  "default": {
+    "title": "默认车站",
+    "empty": "无默认车站",
+    "emptyHint": "搜索车站并在标题中将其设为默认车站",
+    "favTip": "将车站添加到收藏夹，以便在搜索中快速找到它们。",
+    "set": "设为默认车站",
+    "unset": "从默认中移除"
+  },
+  "bulletin": {
+    "title": "晚点证明",
+    "subtitle": "SNCF官方证明",
+    "region": "TER地区",
+    "departure": "出发站",
+    "arrival": "到达站",
+    "departurePlaceholder": "巴黎圣拉扎尔火车站...",
+    "arrivalPlaceholder": "里尔佛兰德火车站...",
+    "swap": "交换出发站和到达站",
+    "date": "行程日期",
+    "slot": "到达时间段",
+    "and": "和",
+    "urlGenerated": "生成的URL：",
+    "open": "打开晚点证明",
+    "openHint": "重定向到TER SNCF官方网站，并预填您的行程"
+  },
+  "settings": {
+    "title": "设置",
+    "subtitle": "自定义应用程序",
+    "darkTheme": "深色主题",
+    "darkThemeHint": "黑色背景，非常适合弱光环境",
+    "about": "关于",
+    "version": "版本",
+    "data": "数据",
+    "license": "许可证",
+    "clearData": "清除收藏夹和本地数据",
+    "credits": "致谢和许可证",
+    "legalNotice": "本项目根据MIT许可证分发。铁路数据由SNCF（Navitia）API提供。引用的商标属于其各自所有者。"
+  },
+  "credits": {
+    "developer": "开发者",
+    "aiAssistant": "AI助手",
+    "realtimeData": "实时数据",
+    "uiLibrary": "UI库",
+    "bundler": "打包器/开发服务器",
+    "cssFramework": "CSS框架",
+    "uiComponents": "UI 组件 / 主题",
+    "icons": "图标",
+    "routing": "SPA 路由",
+    "typing": "静态类型",
+    "compression": "URL 压缩",
+    "hosting": "托管"
+  },
+  "time": {
+    "from": "从"
+  },
+  "error": {
+    "api": "API 错误 ({{status}})"
+  }
+}

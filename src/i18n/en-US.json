@@ -1,0 +1,114 @@
+{
+  "nav": {
+    "timetables": "Schedules",
+    "bulletin": "Bulletin",
+    "favorites": "Favorites",
+    "settings": "Settings"
+  },
+  "board": {
+    "departures": "Departures",
+    "arrivals": "Arrivals",
+    "time": "Time",
+    "train": "Train",
+    "destination": "Destination",
+    "provenance": "Origin",
+    "status": "Status",
+    "loading": "Loading...",
+    "retry": "Retry",
+    "loadError": "Loading error",
+    "noTrainDest": "No trains for this destination",
+    "noTrain": "No trains found",
+    "selectStation": "Select a station",
+    "scrollDay": "Scroll wheel to change the day",
+    "scrollTime": "Scroll wheel to change the time (not in 5 min increments)"
+  },
+  "search": {
+    "placeholder": "Search for a station...",
+    "favorites": "My favorite stations",
+    "noResult": "No station found",
+    "filterDest": "Filter by destination...",
+    "filterProv": "Filter by origin...",
+    "favDest": "Favorite destinations",
+    "favProv": "Favorite origins",
+    "to": "To",
+    "from": "From"
+  },
+  "detail": {
+    "track": "Track",
+    "delayJustification": "Get a delay certificate",
+    "viaTer": "Via the TER SNCF website",
+    "stops": "Stops served",
+    "stopsUnavailable": "Stop details unavailable"
+  },
+  "status": {
+    "cancelled": "Deleted",
+    "onTime": "On time",
+    "delayed": "+{{minutes}} min"
+  },
+  "favorites": {
+    "title": "My Favorites",
+    "station_one": "{{count}} station saved",
+    "station_other": "{{count}} stations saved",
+    "empty": "No favorite station",
+    "emptyHint": "Press ♥ to add a station",
+    "add": "Add to favorites",
+    "remove": "Remove from favorites"
+  },
+  "default": {
+    "title": "Default station",
+    "empty": "No default station",
+    "emptyHint": "Search for a station and set it as default from the header",
+    "favTip": "Add stations to favorites via ♥ to find them quickly in search.",
+    "set": "Set as default station",
+    "unset": "Remove from default"
+  },
+  "bulletin": {
+    "title": "Delay certificate",
+    "subtitle": "Official SNCF certificate",
+    "region": "TER Region",
+    "departure": "Departure station",
+    "arrival": "Arrival station",
+    "departurePlaceholder": "Paris Saint-Lazare...",
+    "arrivalPlaceholder": "Lille-Flandres...",
+    "swap": "Swap departure and arrival",
+    "date": "Trip date",
+    "slot": "Arrival time slot",
+    "and": "and",
+    "urlGenerated": "Generated URL:",
+    "open": "Open delay certificate",
+    "openHint": "Redirects to the official TER SNCF website with your trip pre-filled"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Customize the app",
+    "darkTheme": "Dark theme",
+    "darkThemeHint": "Black background, ideal in low light",
+    "about": "About",
+    "version": "Version",
+    "data": "Data",
+    "license": "License",
+    "clearData": "Clear favorites and local data",
+    "credits": "Credits & licenses",
+    "legalNotice": "This project is distributed under the MIT license. Railway data is provided by the SNCF API (Navitia). Mentioned brands belong to their respective owners."
+  },
+  "credits": {
+    "developer": "Developer",
+    "aiAssistant": "AI Assistant",
+    "realtimeData": "Real-time data",
+    "uiLibrary": "UI Library",
+    "bundler": "Bundler / dev server",
+    "cssFramework": "CSS Framework",
+    "uiComponents": "UI Components / Themes",
+    "icons": "Icons",
+    "routing": "SPA Routing",
+    "typing": "Static Typing",
+    "compression": "URL Compression",
+    "hosting": "Hosting"
+  },
+  "time": {
+    "from": "From"
+  },
+  "error": {
+    "api": "API Error ({{status}})"
+  }
+}

@@ -1,114 +1,114 @@
 {
   "nav": {
-    "timetables": "",
-    "bulletin": "",
-    "favorites": "",
-    "settings": ""
+    "timetables": "Orari",
+    "bulletin": "Bollettino",
+    "favorites": "Preferiti",
+    "settings": "Impostazioni"
   },
   "board": {
-    "departures": "",
-    "arrivals": "",
-    "time": "",
-    "train": "",
-    "destination": "",
-    "provenance": "",
-    "status": "",
-    "loading": "",
-    "retry": "",
-    "loadError": "",
-    "noTrainDest": "",
-    "noTrain": "",
-    "selectStation": "",
-    "scrollDay": "",
-    "scrollTime": ""
+    "departures": "Partenze",
+    "arrivals": "Arrivi",
+    "time": "Ora",
+    "train": "Treno",
+    "destination": "Destinazione",
+    "provenance": "Provenienza",
+    "status": "Stato",
+    "loading": "Caricamento...",
+    "retry": "Riprova",
+    "loadError": "Errore di caricamento",
+    "noTrainDest": "Nessun treno per questa destinazione",
+    "noTrain": "Nessun treno trovato",
+    "selectStation": "Seleziona una stazione",
+    "scrollDay": "Rotellina per cambiare giorno",
+    "scrollTime": "Rotellina per cambiare ora (non di 5 min)"
   },
   "search": {
-    "placeholder": "",
-    "favorites": "",
-    "noResult": "",
-    "filterDest": "",
-    "filterProv": "",
-    "favDest": "",
-    "favProv": "",
-    "to": "",
-    "from": ""
+    "placeholder": "Cerca una stazione...",
+    "favorites": "Le mie stazioni preferite",
+    "noResult": "Nessuna stazione trovata",
+    "filterDest": "Filtra per destinazione...",
+    "filterProv": "Filtra per provenienza...",
+    "favDest": "Destinazioni preferite",
+    "favProv": "Provenienze preferite",
+    "to": "Verso",
+    "from": "Da"
   },
   "detail": {
-    "track": "",
-    "delayJustification": "",
-    "viaTer": "",
-    "stops": "",
-    "stopsUnavailable": ""
+    "track": "Binario",
+    "delayJustification": "Ottieni una giustificazione di ritardo",
+    "viaTer": "Tramite il sito TER SNCF",
+    "stops": "Fermate servite",
+    "stopsUnavailable": "Dettaglio fermate non disponibile"
   },
   "status": {
-    "cancelled": "",
-    "onTime": "",
-    "delayed": ""
+    "cancelled": "Elimina",
+    "onTime": "In orario",
+    "delayed": "+{{minutes}} min"
   },
   "favorites": {
-    "title": "",
-    "station_one": "",
-    "station_other": "",
-    "empty": "",
-    "emptyHint": "",
-    "add": "",
-    "remove": ""
+    "title": "I miei Preferiti",
+    "station_one": "{{count}} stazione salvata",
+    "station_other": "{{count}} stazioni salvate",
+    "empty": "Nessuna stazione preferita",
+    "emptyHint": "Premi un ♥ per aggiungere una stazione",
+    "add": "Aggiungi ai preferiti",
+    "remove": "Rimuovi dai preferiti"
   },
   "default": {
-    "title": "",
-    "empty": "",
-    "emptyHint": "",
-    "favTip": "",
-    "set": "",
-    "unset": ""
+    "title": "Stazione predefinita",
+    "empty": "Nessuna stazione predefinita",
+    "emptyHint": "Cerca una stazione e impostala come predefinita dall'intestazione",
+    "favTip": "Aggiungi stazioni ai preferiti tramite il ♥ per ritrovarle rapidamente nella ricerca.",
+    "set": "Imposta come stazione predefinita",
+    "unset": "Rimuovi dal predefinito"
   },
   "bulletin": {
-    "title": "",
-    "subtitle": "",
-    "region": "",
-    "departure": "",
-    "arrival": "",
-    "departurePlaceholder": "",
-    "arrivalPlaceholder": "",
-    "swap": "",
-    "date": "",
-    "slot": "",
-    "and": "",
-    "urlGenerated": "",
-    "open": "",
-    "openHint": ""
+    "title": "Certificato di ritardo",
+    "subtitle": "Certificato ufficiale SNCF",
+    "region": "Regione TER",
+    "departure": "Stazione di partenza",
+    "arrival": "Stazione di arrivo",
+    "departurePlaceholder": "Parigi Saint-Lazare...",
+    "arrivalPlaceholder": "Lille-Flandres...",
+    "swap": "Inverti partenza e arrivo",
+    "date": "Data del viaggio",
+    "slot": "Fascia oraria di arrivo",
+    "and": "e",
+    "urlGenerated": "URL generato:",
+    "open": "Apri il certificato di ritardo",
+    "openHint": "Reindirizza al sito ufficiale TER SNCF con il tuo viaggio precompilato"
   },
   "settings": {
-    "title": "",
-    "subtitle": "",
-    "darkTheme": "",
-    "darkThemeHint": "",
-    "about": "",
-    "version": "",
-    "data": "",
-    "license": "",
-    "clearData": "",
-    "credits": "",
-    "legalNotice": ""
+    "title": "Impostazioni",
+    "subtitle": "Personalizza l'applicazione",
+    "darkTheme": "Tema scuro",
+    "darkThemeHint": "Sfondo nero, ideale in condizioni di scarsa illuminazione",
+    "about": "Informazioni",
+    "version": "Versione",
+    "data": "Dati",
+    "license": "Licenza",
+    "clearData": "Cancella preferiti e dati locali",
+    "credits": "Crediti e licenze",
+    "legalNotice": "Questo progetto è distribuito sotto licenza MIT. I dati ferroviari sono forniti dall'API SNCF (Navitia). I marchi citati appartengono ai rispettivi proprietari."
   },
   "credits": {
-    "developer": "",
-    "aiAssistant": "",
-    "realtimeData": "",
-    "uiLibrary": "",
-    "bundler": "",
-    "cssFramework": "",
-    "uiComponents": "",
-    "icons": "",
-    "routing": "",
-    "typing": "",
-    "compression": "",
-    "hosting": ""
+    "developer": "Sviluppatore",
+    "aiAssistant": "Assistente IA",
+    "realtimeData": "Dati in tempo reale",
+    "uiLibrary": "Libreria UI",
+    "bundler": "Bundler / server di sviluppo",
+    "cssFramework": "Framework CSS",
+    "uiComponents": "Componenti UI / temi",
+    "icons": "Icone",
+    "routing": "Routing SPA",
+    "typing": "Tipizzazione statica",
+    "compression": "Compressione URL",
+    "hosting": "Hosting"
   },
   "time": {
-    "from": ""
+    "from": "Da"
   },
   "error": {
-    "api": ""
+    "api": "Errore API ({{status}})"
   }
 }

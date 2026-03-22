@@ -18,6 +18,7 @@
     "loadError": "Ladefehler",
     "noTrainDest": "Kein Zug für dieses Ziel",
     "noTrain": "Kein Zug gefunden",
+    "trains": "Züge",
     "selectStation": "Bahnhof auswählen",
     "scrollDay": "Scrollrad zum Ändern des Tages",
     "scrollTime": "Scrollrad zum Ändern der Uhrzeit (nicht in 5-Minuten-Schritten)"
@@ -106,7 +107,22 @@
     "hosting": "Hosting"
   },
   "time": {
-    "from": "Ab"
+    "from": "Ab",
+    "now": "Jetzt",
+    "title": "Datum und Uhrzeit",
+    "subtitle": "Sie können die nächsten Züge nach der gewählten Zeit sehen",
+    "today": "Heute",
+    "tomorrow": "Morgen",
+    "apply": "Anwenden"
+  },
+  "station_selector": {
+    "searchPlaceholder": "Bahnhof suchen",
+    "favourites": "Ihre Favoriten",
+    "nearby": "In der Nähe",
+    "locating": "Standort wird ermittelt...",
+    "geoUnavailable": "Geolokalisierung nicht verfügbar",
+    "geoError": "Standort konnte nicht ermittelt werden",
+    "noNearby": "Keine Bahnhöfe in der Nähe"
   },
   "error": {
     "api": "API-Fehler ({{status}})"

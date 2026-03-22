@@ -18,6 +18,7 @@
     "loadError": "Erreur de chargement",
     "noTrainDest": "Aucun train pour cette destination",
     "noTrain": "Aucun train trouve",
+    "trains": "Trains",
     "selectStation": "Selectionnez une gare",
     "scrollDay": "Molette pour changer le jour",
     "scrollTime": "Molette pour changer l'heure (pas de 5 min)"
@@ -106,7 +107,22 @@
     "hosting": "Hebergement"
   },
   "time": {
-    "from": "A partir de"
+    "from": "A partir de",
+    "now": "Maintenant",
+    "title": "Date et heure",
+    "subtitle": "Consultez les prochains trains apres l'heure selectionnee",
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain",
+    "apply": "Appliquer"
+  },
+  "station_selector": {
+    "searchPlaceholder": "Rechercher une gare",
+    "favourites": "Vos favoris",
+    "nearby": "A proximite",
+    "locating": "Localisation en cours...",
+    "geoUnavailable": "La geolocalisation n'est pas disponible",
+    "geoError": "Impossible d'obtenir votre position",
+    "noNearby": "Aucune gare a proximite"
   },
   "error": {
     "api": "Erreur API ({{status}})"

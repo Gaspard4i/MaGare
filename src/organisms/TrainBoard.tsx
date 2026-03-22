@@ -1,10 +1,12 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSync, faTrain, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
 import TrainRow from './TrainRow'
 import TrainDetailSheet from './TrainDetailSheet'
+import TimePickerSheet from './TimePickerSheet'
 import DestinationSearch from '../molecules/DestinationSearch'
+import NowButton from '../atoms/NowButton'
 import { getDepartures, getArrivals, buildFromDatetime } from '../services/apiService'
 import type { Train, Place } from '../types'
 
@@ -29,47 +31,10 @@ export default function TrainBoard({ station, mode }: Props) {
   const [date, setDate] = useState(todayStr)
   const [time, setTime] = useState(nowStr)
   const [destination, setDestination] = useState<Place | null>(null)
+  const [timePickerOpen, setTimePickerOpen] = useState(false)
 
   const stationId = station?.stop_area?.id ?? station?.id ?? ''
   const boardClass = mode === 'departures' ? 'board-departures' : 'board-arrivals'
-
-  const timeRef = useRef<HTMLInputElement>(null)
-  const dateRef = useRef<HTMLInputElement>(null)
-  const timeVal = useRef(time)
-  const dateVal = useRef(date)
-  timeVal.current = time
-  dateVal.current = date
-
-  // Wheel handler for time input
-  useEffect(() => {
-    const el = timeRef.current
-    if (!el) return
-    const handler = (e: WheelEvent) => {
-      e.preventDefault()
-      const [h, m] = timeVal.current.split(':').map(Number)
-      const step = 5
-      const total = ((h * 60 + m) + (e.deltaY < 0 ? step : -step) + 1440) % 1440
-      const nh = Math.floor(total / 60)
-      const nm = total % 60
-      setTime(`${String(nh).padStart(2, '0')}:${String(nm).padStart(2, '0')}`)
-    }
-    el.addEventListener('wheel', handler, { passive: false })
-    return () => el.removeEventListener('wheel', handler)
-  }, [])
-
-  // Wheel handler for date input
-  useEffect(() => {
-    const el = dateRef.current
-    if (!el) return
-    const handler = (e: WheelEvent) => {
-      e.preventDefault()
-      const d = new Date(dateVal.current + 'T00:00:00')
-      d.setDate(d.getDate() + (e.deltaY < 0 ? 1 : -1))
-      setDate(d.toISOString().split('T')[0])
-    }
-    el.addEventListener('wheel', handler, { passive: false })
-    return () => el.removeEventListener('wheel', handler)
-  }, [])
 
   useEffect(() => {
     setDestination(null)
@@ -113,6 +78,20 @@ export default function TrainBoard({ station, mode }: Props) {
     })
   }, [trains, destination, mode])
 
+  const handleNow = () => {
+    setDate(todayStr())
+    setTime(nowStr())
+  }
+
+  const handleTimeApply = (newDate: string, newTime: string) => {
+    setDate(newDate)
+    setTime(newTime)
+  }
+
+  // Format display time for the button
+  const isNow = date === todayStr() && time === nowStr()
+  const displayDateLabel = date === todayStr() ? t('time.today') : date === (() => { const d = new Date(); d.setDate(d.getDate() + 1); return d.toISOString().split('T')[0] })() ? t('time.tomorrow') : date
+
   if (!station) {
     return (
       <div className="flex flex-col items-center justify-center py-20" style={{ color: 'var(--board-text, var(--color-primary-content))' }}>
@@ -128,27 +107,36 @@ export default function TrainBoard({ station, mode }: Props) {
     <div className={`w-full flex flex-col h-full min-h-0 ${boardClass}`}>
       {/* ── Toolbar (dark shade) ── */}
       <div className="shrink-0 board-toolbar">
-        {/* Date/time + refresh */}
-        <div className="flex items-center gap-2 px-3 py-1.5" style={textStyle}>
-          <input
-            ref={dateRef}
-            type="date"
-            value={date}
-            onChange={e => setDate(e.target.value)}
-            title={t('board.scrollDay')}
-            className="bg-white/10 text-xs border border-white/15 rounded px-2 py-1 focus:outline-none focus:border-white/40 cursor-ns-resize [color-scheme:dark] transition-colors"
-            style={textStyle}
-          />
-          <input
-            ref={timeRef}
-            type="time"
-            value={time}
-            onChange={e => setTime(e.target.value)}
-            title={t('board.scrollTime')}
-            className="bg-white/10 text-xs border border-white/15 rounded px-2 py-1 focus:outline-none focus:border-white/40 cursor-ns-resize [color-scheme:dark] transition-colors"
-            style={textStyle}
-          />
+        {/* Destination search + Now button */}
+        <div className="flex items-center gap-2 px-3 py-2">
+          <div className="flex-1">
+            <DestinationSearch
+              stationId={stationId}
+              destination={destination}
+              onDestinationChange={setDestination}
+              mode={mode}
+            />
+          </div>
+          <NowButton onClick={handleNow} />
+        </div>
+
+        {/* Transport mode pill + time display */}
+        <div className="flex items-center gap-2 px-3 py-1.5 border-t border-white/10" style={textStyle}>
+          <button
+            onClick={() => setTimePickerOpen(true)}
+            className="flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-3 py-1.5 hover:bg-white/15 transition-colors"
+          >
+            <FontAwesomeIcon icon={faTrain} size="xs" className="opacity-60" />
+            <span className="text-xs font-semibold">{t('board.trains')}</span>
+          </button>
+
           <div className="flex items-center gap-1.5 ml-auto">
+            <button
+              onClick={() => setTimePickerOpen(true)}
+              className="text-xs opacity-60 hover:opacity-100 transition-opacity"
+            >
+              {time}
+            </button>
             {lastUpdate && (
               <span className="text-2xs opacity-40">
                 {lastUpdate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
@@ -163,14 +151,6 @@ export default function TrainBoard({ station, mode }: Props) {
             </button>
           </div>
         </div>
-
-        {/* Destination search */}
-        <DestinationSearch
-          stationId={stationId}
-          destination={destination}
-          onDestinationChange={setDestination}
-          mode={mode}
-        />
       </div>
 
       {/* ── Column headers (darkest shade) ── */}
@@ -221,6 +201,14 @@ export default function TrainBoard({ station, mode }: Props) {
         train={selected}
         type={mode === 'departures' ? 'departure' : 'arrival'}
         onClose={() => setSelected(null)}
+      />
+
+      <TimePickerSheet
+        isOpen={timePickerOpen}
+        date={date}
+        time={time}
+        onApply={handleTimeApply}
+        onClose={() => setTimePickerOpen(false)}
       />
     </div>
   )

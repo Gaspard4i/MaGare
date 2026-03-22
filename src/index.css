@@ -262,3 +262,19 @@ body {
 [data-theme="app-sncf-dark"] .link-action:hover {
   color: color-mix(in oklch, var(--color-info) 80%, white);
 }
+
+/* ── Wheel Picker ────────────────────────────────────────────────────────── */
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Safe area padding (iPhone notch / home bar) ─────────────────────────── */
+
+.safe-area-pb {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}

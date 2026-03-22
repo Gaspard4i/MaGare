@@ -117,29 +117,25 @@ export default function DestinationSearch({ stationId, destination, onDestinatio
 
   return (
     <div ref={wrapRef} className="relative" style={{ color: 'var(--board-text)' }}>
-      <div className="flex items-center gap-2 px-3 py-1.5 border-t border-white/10">
-        <FontAwesomeIcon icon={faMapMarkerAlt} size="xs" className="opacity-40 shrink-0" />
-        <span className="opacity-50 text-2xs font-semibold uppercase tracking-wider shrink-0">{label}</span>
-        <div className="relative flex-1 flex items-center">
-          <FontAwesomeIcon icon={faSearch} className="absolute left-2 z-10 pointer-events-none opacity-30" size="xs" />
-          <input
-            type="text"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            onFocus={handleFocus}
-            placeholder={mode === 'departures' ? t('search.filterDest') : t('search.filterProv')}
-            className="w-full pl-6 pr-6 py-1 rounded-md bg-white/10 border border-white/15 placeholder-white/30 focus:outline-none focus:border-white/40 transition-all text-xs"
-            style={{ color: 'inherit' }}
-          />
-          {loading && (
-            <span className="absolute right-2 loading loading-spinner loading-xs opacity-50" />
-          )}
-          {!loading && query && (
-            <button onClick={handleClear} className="absolute right-2 opacity-30 hover:opacity-100 transition-opacity">
-              <FontAwesomeIcon icon={faTimes} size="xs" />
-            </button>
-          )}
-        </div>
+      <div className="relative flex items-center">
+        <FontAwesomeIcon icon={faSearch} className="absolute left-3.5 z-10 pointer-events-none opacity-40" size="sm" />
+        <input
+          type="text"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          onFocus={handleFocus}
+          placeholder={mode === 'departures' ? t('search.filterDest') : t('search.filterProv')}
+          className="w-full pl-10 pr-8 py-2.5 rounded-xl bg-white/10 border border-white/20 placeholder-white/40 focus:outline-none focus:border-white/50 focus:bg-white/15 transition-all text-sm"
+          style={{ color: 'inherit' }}
+        />
+        {loading && (
+          <span className="absolute right-3 loading loading-spinner loading-xs opacity-50" />
+        )}
+        {!loading && query && (
+          <button onClick={handleClear} className="absolute right-3 opacity-40 hover:opacity-100 transition-opacity">
+            <FontAwesomeIcon icon={faTimes} size="xs" />
+          </button>
+        )}
       </div>
 
       {/* Favorites dropdown */}

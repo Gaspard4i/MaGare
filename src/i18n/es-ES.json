@@ -18,6 +18,7 @@
     "loadError": "Error al cargar",
     "noTrainDest": "No hay trenes para este destino",
     "noTrain": "No se han encontrado trenes",
+    "trains": "Trenes",
     "selectStation": "Selecciona una estación",
     "scrollDay": "Rueda para cambiar el día",
     "scrollTime": "Rueda para cambiar la hora (no cada 5 min)"
@@ -106,7 +107,22 @@
     "hosting": "Alojamiento"
   },
   "time": {
-    "from": "A partir de"
+    "from": "A partir de",
+    "now": "Ahora",
+    "title": "Fecha y hora",
+    "subtitle": "Puede ver los próximos trenes después de la hora seleccionada",
+    "today": "Hoy",
+    "tomorrow": "Mañana",
+    "apply": "Aplicar"
+  },
+  "station_selector": {
+    "searchPlaceholder": "Buscar una estación",
+    "favourites": "Sus favoritos",
+    "nearby": "Cercanos",
+    "locating": "Localizando...",
+    "geoUnavailable": "Geolocalización no disponible",
+    "geoError": "No se pudo obtener su ubicación",
+    "noNearby": "No hay estaciones cercanas"
   },
   "error": {
     "api": "Error de la API ({{status}})"

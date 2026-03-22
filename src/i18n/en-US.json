@@ -18,6 +18,7 @@
     "loadError": "Loading error",
     "noTrainDest": "No trains for this destination",
     "noTrain": "No trains found",
+    "trains": "Trains",
     "selectStation": "Select a station",
     "scrollDay": "Scroll wheel to change the day",
     "scrollTime": "Scroll wheel to change the time (not in 5 min increments)"
@@ -106,7 +107,22 @@
     "hosting": "Hosting"
   },
   "time": {
-    "from": "From"
+    "from": "From",
+    "now": "Now",
+    "title": "Date and time",
+    "subtitle": "You can see the next trains after the selected time",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "apply": "Apply"
+  },
+  "station_selector": {
+    "searchPlaceholder": "Search for a station",
+    "favourites": "Your favorites",
+    "nearby": "Nearby",
+    "locating": "Locating...",
+    "geoUnavailable": "Geolocation is not available",
+    "geoError": "Unable to get your location",
+    "noNearby": "No nearby stations"
   },
   "error": {
     "api": "API Error ({{status}})"

@@ -18,6 +18,7 @@
     "loadError": "Errore di caricamento",
     "noTrainDest": "Nessun treno per questa destinazione",
     "noTrain": "Nessun treno trovato",
+    "trains": "Treni",
     "selectStation": "Seleziona una stazione",
     "scrollDay": "Rotellina per cambiare giorno",
     "scrollTime": "Rotellina per cambiare ora (non di 5 min)"
@@ -106,7 +107,22 @@
     "hosting": "Hosting"
   },
   "time": {
-    "from": "Da"
+    "from": "Da",
+    "now": "Adesso",
+    "title": "Data e ora",
+    "subtitle": "Puoi vedere i prossimi treni dopo l'ora selezionata",
+    "today": "Oggi",
+    "tomorrow": "Domani",
+    "apply": "Applica"
+  },
+  "station_selector": {
+    "searchPlaceholder": "Cerca una stazione",
+    "favourites": "I tuoi preferiti",
+    "nearby": "Nelle vicinanze",
+    "locating": "Localizzazione in corso...",
+    "geoUnavailable": "Geolocalizzazione non disponibile",
+    "geoError": "Impossibile ottenere la posizione",
+    "noNearby": "Nessuna stazione nelle vicinanze"
   },
   "error": {
     "api": "Errore API ({{status}})"

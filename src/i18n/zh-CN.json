@@ -18,6 +18,7 @@
     "loadError": "加载错误",
     "noTrainDest": "此目的地无列车",
     "noTrain": "未找到列车",
+    "trains": "列车",
     "selectStation": "选择车站",
     "scrollDay": "滚动滚轮切换日期",
     "scrollTime": "滚动滚轮切换时间（非5分钟间隔）"
@@ -106,7 +107,22 @@
     "hosting": "托管"
   },
   "time": {
-    "from": "从"
+    "from": "从",
+    "now": "现在",
+    "title": "日期和时间",
+    "subtitle": "您可以查看所选时间之后的列车",
+    "today": "今天",
+    "tomorrow": "明天",
+    "apply": "确认"
+  },
+  "station_selector": {
+    "searchPlaceholder": "搜索车站",
+    "favourites": "您的收藏",
+    "nearby": "附近",
+    "locating": "正在定位...",
+    "geoUnavailable": "地理定位不可用",
+    "geoError": "无法获取您的位置",
+    "noNearby": "附近没有车站"
   },
   "error": {
     "api": "API 错误 ({{status}})"

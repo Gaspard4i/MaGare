@@ -7,7 +7,7 @@ import BoardPage    from './pages/BoardPage'
 import BulletinPage from './pages/BulletinPage'
 import FavoritesPage from './pages/FavoritesPage'
 import SettingsPage  from './pages/SettingsPage'
-import { getDefaultStation, getTheme } from './services/storageService'
+import { getDefaultStation } from './services/storageService'
 import type { Place, TabId } from './types'
 import type { BoardMode } from './utils/modeColors'
 
@@ -32,7 +32,7 @@ function AppShell() {
   const setTab        = (t: TabId) => navigate(TAB_PATHS[t])
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', getTheme())
+    document.documentElement.setAttribute('data-theme', 'app-sncf')
     const def = getDefaultStation()
     if (def) setStation(def)
   }, [])
@@ -55,6 +55,7 @@ function AppShell() {
         onSelect={setStation}
         activeTab={tab}
         boardMode={boardMode}
+        onTabChange={setTab}
       />
 
       {/* ── Main content (full width, pages manage their own layout) */}

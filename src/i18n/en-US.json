@@ -3,7 +3,9 @@
     "timetables": "Schedules",
     "bulletin": "Bulletin",
     "favorites": "Favorites",
-    "settings": "About"
+    "settings": "About",
+    "primary": "Primary navigation",
+    "home": "Home"
   },
   "board": {
     "departures": "Departures",
@@ -81,13 +83,15 @@
   "settings": {
     "title": "About",
     "subtitle": "Preferences and information",
-    "darkTheme": "Dark theme",
-    "darkThemeHint": "Black background, ideal in low light",
     "about": "About",
+    "preferences": "Preferences",
+    "localData": "Local data",
+    "author": "Author",
     "version": "Version",
     "data": "Data",
     "license": "License",
     "clearData": "Clear favorites and local data",
+    "clearDataConfirm": "Clear your favorites and default station? This cannot be undone.",
     "credits": "Credits & licenses",
     "legalNotice": "This project is distributed under the MIT license. Railway data is provided by the SNCF API (Navitia). Mentioned brands belong to their respective owners."
   },

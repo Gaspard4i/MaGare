@@ -5,7 +5,6 @@ const K = {
   FAVORITES:  'mg_favorites',   // string[] of IDs
   FAV_PLACES: 'mg_fav_places',  // Record<id, Place>
   DEST_FAVS:  'mg_dest_favs',   // Record<stationId, Record<destId, Place>>
-  THEME:      'mg_theme',
 } as const
 
 // ── Default station ───────────────────────────────────────────────────────────
@@ -118,19 +117,3 @@ export const toggleDestFavorite = (stationId: string, destId: string, place?: Pl
   return !exists
 }
 
-// ── Theme ─────────────────────────────────────────────────────────────────────
-
-export const getTheme = (): 'app-sncf' | 'app-sncf-dark' => {
-  try {
-    const v = localStorage.getItem(K.THEME)
-    if (v === 'app-sncf' || v === 'app-sncf-dark') return v
-    if (v === 'sncf') return 'app-sncf'
-    if (v === 'sncf-dark') return 'app-sncf-dark'
-    return 'app-sncf'
-  } catch { return 'app-sncf' }
-}
-
-export const setTheme = (t: 'app-sncf' | 'app-sncf-dark'): void => {
-  localStorage.setItem(K.THEME, t)
-  document.documentElement.setAttribute('data-theme', t)
-}

@@ -3,7 +3,9 @@
     "timetables": "时刻表",
     "bulletin": "公告",
     "favorites": "收藏夹",
-    "settings": "关于"
+    "settings": "关于",
+    "primary": "主导航",
+    "home": "首页"
   },
   "board": {
     "departures": "出发",
@@ -81,13 +83,15 @@
   "settings": {
     "title": "关于",
     "subtitle": "偏好设置和信息",
-    "darkTheme": "深色主题",
-    "darkThemeHint": "黑色背景，非常适合弱光环境",
     "about": "关于",
+    "preferences": "偏好设置",
+    "localData": "本地数据",
+    "author": "作者",
     "version": "版本",
     "data": "数据",
     "license": "许可证",
     "clearData": "清除收藏夹和本地数据",
+    "clearDataConfirm": "清除收藏夹和默认车站？此操作无法撤销。",
     "credits": "致谢和许可证",
     "legalNotice": "本项目根据MIT许可证分发。铁路数据由SNCF（Navitia）API提供。引用的商标属于其各自所有者。"
   },

@@ -18,9 +18,10 @@ interface Props {
   onSelect: (p: Place | null) => void
   activeTab: TabId
   boardMode: BoardMode
+  onTabChange?: (t: TabId) => void
 }
 
-export default function Header({ selected, onSelect, activeTab, boardMode }: Props) {
+export default function Header({ selected, onSelect, activeTab, boardMode, onTabChange }: Props) {
   const { t } = useTranslation()
   const id   = selected?.stop_area?.id ?? selected?.id ?? ''
   const name = selected?.stop_area?.name ?? selected?.name ?? ''
@@ -48,9 +49,14 @@ export default function Header({ selected, onSelect, activeTab, boardMode }: Pro
     <header className={`lg:hidden ${headerBg} text-primary-content sticky top-0 z-40 shadow-xl transition-colors duration-300`}>
       {/* Logo + search row */}
       <div className="flex items-center gap-3 px-4 pt-3 pb-2">
-        <div className="flex items-center gap-2 shrink-0">
+        <button
+          type="button"
+          onClick={() => onTabChange?.('timetables')}
+          aria-label={t('nav.home')}
+          className="flex items-center gap-2 shrink-0 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-content/40"
+        >
           <span className="font-black text-base tracking-tight">MaGare</span>
-        </div>
+        </button>
         <div className="flex-1">
           <SearchBar onSelect={onSelect} selected={selected} />
         </div>

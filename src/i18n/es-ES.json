@@ -91,23 +91,7 @@
     "data": "Datos",
     "license": "Licencia",
     "clearData": "Borrar favoritos y datos locales",
-    "clearDataConfirm": "¿Borrar tus favoritos y estación por defecto? Esta acción no se puede deshacer.",
-    "credits": "Créditos y licencias",
-    "legalNotice": "Este proyecto se distribuye bajo licencia MIT. Los datos ferroviarios son proporcionados por la API SNCF (Navitia). Las marcas citadas pertenecen a sus respectivos propietarios."
-  },
-  "credits": {
-    "developer": "Desarrollador",
-    "aiAssistant": "Asistente IA",
-    "realtimeData": "Datos en tiempo real",
-    "uiLibrary": "Librería UI",
-    "bundler": "Bundler / servidor de desarrollo",
-    "cssFramework": "Framework CSS",
-    "uiComponents": "Componentes UI / temas",
-    "icons": "Iconos",
-    "routing": "Enrutamiento SPA",
-    "typing": "Tipado estático",
-    "compression": "Compresión de URL",
-    "hosting": "Alojamiento"
+    "clearDataConfirm": "¿Borrar tus favoritos y estación por defecto? Esta acción no se puede deshacer."
   },
   "time": {
     "from": "A partir de"

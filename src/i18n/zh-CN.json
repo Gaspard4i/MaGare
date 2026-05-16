@@ -91,23 +91,7 @@
     "data": "数据",
     "license": "许可证",
     "clearData": "清除收藏夹和本地数据",
-    "clearDataConfirm": "清除收藏夹和默认车站？此操作无法撤销。",
-    "credits": "致谢和许可证",
-    "legalNotice": "本项目根据MIT许可证分发。铁路数据由SNCF（Navitia）API提供。引用的商标属于其各自所有者。"
-  },
-  "credits": {
-    "developer": "开发者",
-    "aiAssistant": "AI助手",
-    "realtimeData": "实时数据",
-    "uiLibrary": "UI库",
-    "bundler": "打包器/开发服务器",
-    "cssFramework": "CSS框架",
-    "uiComponents": "UI 组件 / 主题",
-    "icons": "图标",
-    "routing": "SPA 路由",
-    "typing": "静态类型",
-    "compression": "URL 压缩",
-    "hosting": "托管"
+    "clearDataConfirm": "清除收藏夹和默认车站？此操作无法撤销。"
   },
   "time": {
     "from": "从"

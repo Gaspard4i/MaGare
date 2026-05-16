@@ -91,23 +91,7 @@
     "data": "Donnees",
     "license": "Licence",
     "clearData": "Effacer favoris et donnees locales",
-    "clearDataConfirm": "Effacer vos favoris et votre gare par defaut ? Cette action est irreversible.",
-    "credits": "Credits & licences",
-    "legalNotice": "Ce projet est distribue sous licence MIT. Les donnees ferroviaires sont fournies par l'API SNCF (Navitia). Les marques citees appartiennent a leurs proprietaires respectifs."
-  },
-  "credits": {
-    "developer": "Developpeur",
-    "aiAssistant": "Assistant IA",
-    "realtimeData": "Donnees temps reel",
-    "uiLibrary": "Librairie UI",
-    "bundler": "Bundler / serveur dev",
-    "cssFramework": "Framework CSS",
-    "uiComponents": "Composants UI / themes",
-    "icons": "Icones",
-    "routing": "Routing SPA",
-    "typing": "Typage statique",
-    "compression": "Compression URL",
-    "hosting": "Hebergement"
+    "clearDataConfirm": "Effacer vos favoris et votre gare par defaut ? Cette action est irreversible."
   },
   "time": {
     "from": "A partir de"

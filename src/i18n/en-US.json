@@ -91,23 +91,7 @@
     "data": "Data",
     "license": "License",
     "clearData": "Clear favorites and local data",
-    "clearDataConfirm": "Clear your favorites and default station? This cannot be undone.",
-    "credits": "Credits & licenses",
-    "legalNotice": "This project is distributed under the MIT license. Railway data is provided by the SNCF API (Navitia). Mentioned brands belong to their respective owners."
-  },
-  "credits": {
-    "developer": "Developer",
-    "aiAssistant": "AI Assistant",
-    "realtimeData": "Real-time data",
-    "uiLibrary": "UI Library",
-    "bundler": "Bundler / dev server",
-    "cssFramework": "CSS Framework",
-    "uiComponents": "UI Components / Themes",
-    "icons": "Icons",
-    "routing": "SPA Routing",
-    "typing": "Static Typing",
-    "compression": "URL Compression",
-    "hosting": "Hosting"
+    "clearDataConfirm": "Clear your favorites and default station? This cannot be undone."
   },
   "time": {
     "from": "From"

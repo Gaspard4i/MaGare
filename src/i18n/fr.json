@@ -52,7 +52,7 @@
     "station_one": "{{count}} gare sauvegardee",
     "station_other": "{{count}} gares sauvegardees",
     "empty": "Aucune gare favorite",
-    "emptyHint": "Appuyez sur \u2665 pour ajouter une gare",
+    "emptyHint": "Appuyez sur ♥ pour ajouter une gare",
     "add": "Ajouter aux favoris",
     "remove": "Retirer des favoris"
   },
@@ -60,7 +60,7 @@
     "title": "Gare par defaut",
     "empty": "Aucune gare par defaut",
     "emptyHint": "Recherchez une gare et definissez-la comme defaut depuis l'en-tete",
-    "favTip": "Ajoutez des gares en favoris via le \u2665 pour les retrouver rapidement dans la recherche.",
+    "favTip": "Ajoutez des gares en favoris via le ♥ pour les retrouver rapidement dans la recherche.",
     "set": "Definir comme gare par defaut",
     "unset": "Retirer du defaut"
   },
@@ -91,23 +91,7 @@
     "data": "Donnees",
     "license": "Licence",
     "clearData": "Effacer favoris et donnees locales",
-    "clearDataConfirm": "Effacer vos favoris et votre gare par defaut ? Cette action est irreversible.",
-    "credits": "Credits & licences",
-    "legalNotice": "Ce projet est distribue sous licence MIT. Les donnees ferroviaires sont fournies par l'API SNCF (Navitia). Les marques citees appartiennent a leurs proprietaires respectifs."
-  },
-  "credits": {
-    "developer": "Developpeur",
-    "aiAssistant": "Assistant IA",
-    "realtimeData": "Donnees temps reel",
-    "uiLibrary": "Librairie UI",
-    "bundler": "Bundler / serveur dev",
-    "cssFramework": "Framework CSS",
-    "uiComponents": "Composants UI / themes",
-    "icons": "Icones",
-    "routing": "Routing SPA",
-    "typing": "Typage statique",
-    "compression": "Compression URL",
-    "hosting": "Hebergement"
+    "clearDataConfirm": "Effacer vos favoris et votre gare par defaut ? Cette action est irreversible."
   },
   "time": {
     "from": "A partir de"

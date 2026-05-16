@@ -3,7 +3,9 @@
     "timetables": "Horaires",
     "bulletin": "Bulletin",
     "favorites": "Favoris",
-    "settings": "A propos"
+    "settings": "A propos",
+    "primary": "Navigation principale",
+    "home": "Accueil"
   },
   "board": {
     "departures": "Departs",
@@ -81,13 +83,15 @@
   "settings": {
     "title": "A propos",
     "subtitle": "Preferences et informations",
-    "darkTheme": "Theme sombre",
-    "darkThemeHint": "Fond noir, ideal en faible luminosite",
     "about": "A propos",
+    "preferences": "Preferences",
+    "localData": "Donnees locales",
+    "author": "Auteur",
     "version": "Version",
     "data": "Donnees",
     "license": "Licence",
     "clearData": "Effacer favoris et donnees locales",
+    "clearDataConfirm": "Effacer vos favoris et votre gare par defaut ? Cette action est irreversible.",
     "credits": "Credits & licences",
     "legalNotice": "Ce projet est distribue sous licence MIT. Les donnees ferroviaires sont fournies par l'API SNCF (Navitia). Les marques citees appartiennent a leurs proprietaires respectifs."
   },

@@ -2,7 +2,7 @@
  * AppNav — Desktop top navigation bar (hidden on mobile).
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faFileAlt, faHeart, faGear, faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faFileAlt, faHeart, faCircleInfo, faLocationDot, faStar } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
 import SearchBar from './SearchBar'
 import LanguageSwitcher from '../molecules/LanguageSwitcher'
@@ -17,7 +17,7 @@ const NAV_TABS: { id: TabId; labelKey: string; icon: any }[] = [
   { id: 'timetables', labelKey: 'nav.timetables', icon: faClock },
   { id: 'bulletin',   labelKey: 'nav.bulletin',   icon: faFileAlt },
   { id: 'favorites',  labelKey: 'nav.favorites',  icon: faHeart },
-  { id: 'settings',   labelKey: 'nav.settings',   icon: faGear },
+  { id: 'settings',   labelKey: 'nav.settings',   icon: faCircleInfo },
 ]
 
 interface Props {
@@ -56,10 +56,15 @@ export default function AppNav({ active, onChange, selected, onSelect, boardMode
     <header className={`hidden lg:flex flex-col ${headerBg} text-primary-content sticky top-0 z-40 shadow-xl transition-colors duration-300`}>
       {/* Main bar */}
       <div className="px-6 xl:px-10 py-3 flex items-center gap-4 min-h-0">
-        {/* Logo */}
-        <div className="flex items-center gap-2.5 shrink-0 mr-2">
+        {/* Logo (acts as home link) */}
+        <button
+          type="button"
+          onClick={() => onChange('timetables')}
+          aria-label={t('nav.home')}
+          className="flex items-center gap-2.5 shrink-0 mr-2 rounded-lg px-1 -mx-1 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-content/40"
+        >
           <span className="font-black text-xl tracking-tight">MaGare</span>
-        </div>
+        </button>
 
         {/* Search bar */}
         <div className="flex-1 max-w-sm xl:max-w-md 2xl:max-w-lg">
@@ -67,22 +72,28 @@ export default function AppNav({ active, onChange, selected, onSelect, boardMode
         </div>
 
         {/* Nav tabs */}
-        <nav className="flex items-center gap-1 ml-auto">
+        <nav aria-label={t('nav.primary')} className="flex items-center gap-1 ml-auto">
           <LanguageSwitcher variant="compact" />
-          {NAV_TABS.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => onChange(tab.id)}
-              className={`flex items-center gap-2 px-3 xl:px-4 py-2 rounded-xl font-semibold text-sm transition-all ${
-                active === tab.id
-                  ? 'bg-primary-content/20 text-primary-content'
-                  : 'text-primary-content/60 hover:text-primary-content hover:bg-primary-content/10'
-              }`}
-            >
-              <FontAwesomeIcon icon={tab.icon} size="sm" />
-              <span className="hidden xl:inline">{t(tab.labelKey)}</span>
-            </button>
-          ))}
+          {NAV_TABS.map(tab => {
+            const isActive = active === tab.id
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => onChange(tab.id)}
+                aria-current={isActive ? 'page' : undefined}
+                aria-label={t(tab.labelKey)}
+                className={`flex items-center gap-2 px-3 xl:px-4 py-2 rounded-xl font-semibold text-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-content/40 ${
+                  isActive
+                    ? 'bg-primary-content/20 text-primary-content'
+                    : 'text-primary-content/65 hover:text-primary-content hover:bg-primary-content/10'
+                }`}
+              >
+                <FontAwesomeIcon icon={tab.icon} size="sm" aria-hidden="true" />
+                <span className="hidden lg:inline">{t(tab.labelKey)}</span>
+              </button>
+            )
+          })}
         </nav>
       </div>
 

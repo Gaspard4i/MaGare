@@ -1,21 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMoon, faSun, faGear, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
-import { getTheme, setTheme } from '../services/storageService'
-import { useState } from 'react'
 import LanguageSwitcher from '../molecules/LanguageSwitcher'
 
 export default function SettingsPage() {
   const { t } = useTranslation()
-  const [isDark, setIsDark] = useState(() => getTheme() === 'app-sncf-dark')
-
-  const toggleTheme = () => {
-    const next = isDark ? 'app-sncf' : 'app-sncf-dark'
-    setTheme(next)
-    setIsDark(!isDark)
-  }
 
   const clearFavorites = () => {
+    if (!window.confirm(t('settings.clearDataConfirm'))) return
     localStorage.removeItem('mg_favorites')
     localStorage.removeItem('mg_fav_places')
     localStorage.removeItem('mg_default_station')
@@ -28,7 +20,7 @@ export default function SettingsPage() {
       <div className="bg-primary text-primary-content px-4 lg:px-8 py-5">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
           <div className="bg-primary-content/15 p-2.5 rounded-xl">
-            <FontAwesomeIcon icon={faGear} />
+            <FontAwesomeIcon icon={faCircleInfo} />
           </div>
           <div>
             <h1 className="font-bold text-base lg:text-lg">{t('settings.title')}</h1>
@@ -37,39 +29,15 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto p-4 lg:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 max-w-3xl">
+      <div className="max-w-7xl mx-auto p-4 lg:p-8 space-y-6 max-w-3xl">
 
-          {/* Language switcher */}
-          <LanguageSwitcher variant="card" />
-
-          {/* Theme toggle */}
-          <div className="card bg-base-100 shadow-sm border border-base-300 hover:shadow-md transition-shadow">
-            <div className="card-body p-4 lg:p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="text-2xl">
-                    <FontAwesomeIcon icon={isDark ? faMoon : faSun} className={isDark ? 'text-info' : 'text-warning'} />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-base-content text-sm">{t('settings.darkTheme')}</div>
-                    <div className="text-base-content/50 text-xs">{t('settings.darkThemeHint')}</div>
-                  </div>
-                </div>
-                <input
-                  type="checkbox"
-                  className="toggle toggle-primary"
-                  checked={isDark}
-                  onChange={toggleTheme}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* App info */}
-          <div className="card bg-base-100 shadow-sm border border-base-300 hover:shadow-md transition-shadow">
+        {/* À propos */}
+        <section aria-labelledby="about-heading">
+          <h2 id="about-heading" className="text-base-content/70 font-semibold text-xs uppercase tracking-wider mb-2 px-1">
+            {t('settings.about')}
+          </h2>
+          <div className="card bg-base-100 shadow-sm border border-base-300">
             <div className="card-body p-4 lg:p-6 space-y-3">
-              <h2 className="text-base-content font-semibold text-sm">{t('settings.about')}</h2>
               <div className="flex justify-between text-sm">
                 <span className="text-base-content/60">{t('settings.version')}</span>
                 <span className="font-semibold text-base-content">1.0.0</span>
@@ -82,36 +50,43 @@ export default function SettingsPage() {
                 <span className="text-base-content/60">{t('settings.license')}</span>
                 <span className="font-semibold text-base-content">MIT</span>
               </div>
+              <div className="flex justify-between text-sm items-center pt-2 border-t border-base-300">
+                <span className="text-base-content/60">{t('settings.author')}</span>
+                <a
+                  href="https://gaspard4i.github.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary hover:underline"
+                >
+                  gaspard4i.github.io
+                </a>
+              </div>
             </div>
           </div>
+        </section>
 
-        </div>
+        {/* Préférences */}
+        <section aria-labelledby="prefs-heading">
+          <h2 id="prefs-heading" className="text-base-content/70 font-semibold text-xs uppercase tracking-wider mb-2 px-1">
+            {t('settings.preferences')}
+          </h2>
+          <LanguageSwitcher variant="card" />
+        </section>
 
-        {/* Reset */}
-        <div className="mt-4 max-w-sm">
+        {/* Données locales */}
+        <section aria-labelledby="data-heading">
+          <h2 id="data-heading" className="text-base-content/70 font-semibold text-xs uppercase tracking-wider mb-2 px-1">
+            {t('settings.localData')}
+          </h2>
           <button
             onClick={clearFavorites}
-            className="btn btn-error btn-outline w-full gap-2 hover:brightness-110"
+            className="btn btn-error btn-outline gap-2 hover:brightness-110"
           >
             <FontAwesomeIcon icon={faTrash} />
             {t('settings.clearData')}
           </button>
-        </div>
+        </section>
 
-        {/* Author */}
-        <div className="mt-8 max-w-3xl">
-          <a
-            href="https://gaspard4i.github.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow inline-block"
-          >
-            <div className="card-body p-3">
-              <div className="font-semibold text-sm text-base-content leading-tight">Gaspard Catry</div>
-              <div className="text-2xs text-base-content/50">gaspard4i.github.io</div>
-            </div>
-          </a>
-        </div>
       </div>
     </div>
   )

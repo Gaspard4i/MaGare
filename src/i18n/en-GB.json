@@ -3,7 +3,7 @@
     "timetables": "Timetables",
     "bulletin": "Bulletin",
     "favorites": "Favourites",
-    "settings": "Settings"
+    "settings": "About"
   },
   "board": {
     "departures": "Departures",
@@ -79,8 +79,8 @@
     "openHint": "Redirects to the official TER SNCF website with your journey pre-filled"
   },
   "settings": {
-    "title": "Settings",
-    "subtitle": "Customise the app",
+    "title": "About",
+    "subtitle": "Preferences and information",
     "darkTheme": "Dark theme",
     "darkThemeHint": "Black background, ideal in low light",
     "about": "About",

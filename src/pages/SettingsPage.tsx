@@ -5,27 +5,12 @@ import { getTheme, setTheme } from '../services/storageService'
 import { useState } from 'react'
 import LanguageSwitcher from '../molecules/LanguageSwitcher'
 
-const CREDITS = [
-  { nameKey: 'Gaspard Catry', roleKey: 'credits.developer', url: 'https://github.com/Gaspard4i' },
-  { nameKey: 'Claude (Anthropic)', roleKey: 'credits.aiAssistant', url: 'https://anthropic.com' },
-  { nameKey: 'SNCF — API Navitia', roleKey: 'credits.realtimeData', url: 'https://www.digital.sncf.com/startup/api' },
-  { nameKey: 'React', roleKey: 'credits.uiLibrary', url: 'https://react.dev' },
-  { nameKey: 'Vite', roleKey: 'credits.bundler', url: 'https://vite.dev' },
-  { nameKey: 'Tailwind CSS', roleKey: 'credits.cssFramework', url: 'https://tailwindcss.com' },
-  { nameKey: 'DaisyUI', roleKey: 'credits.uiComponents', url: 'https://daisyui.com' },
-  { nameKey: 'Font Awesome', roleKey: 'credits.icons', url: 'https://fontawesome.com' },
-  { nameKey: 'React Router', roleKey: 'credits.routing', url: 'https://reactrouter.com' },
-  { nameKey: 'TypeScript', roleKey: 'credits.typing', url: 'https://www.typescriptlang.org' },
-  { nameKey: 'LZ-String', roleKey: 'credits.compression', url: 'https://github.com/pieroxy/lz-string' },
-  { nameKey: 'GitHub Pages', roleKey: 'credits.hosting', url: 'https://pages.github.com' },
-]
-
 export default function SettingsPage() {
   const { t } = useTranslation()
-  const [isDark, setIsDark] = useState(() => getTheme() === 'sncf-dark')
+  const [isDark, setIsDark] = useState(() => getTheme() === 'app-sncf-dark')
 
   const toggleTheme = () => {
-    const next = isDark ? 'sncf' : 'sncf-dark'
+    const next = isDark ? 'app-sncf' : 'app-sncf-dark'
     setTheme(next)
     setIsDark(!isDark)
   }
@@ -113,28 +98,19 @@ export default function SettingsPage() {
           </button>
         </div>
 
-        {/* Credits */}
+        {/* Author */}
         <div className="mt-8 max-w-3xl">
-          <h2 className="text-base-content font-bold text-sm mb-3">{t('settings.credits')}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {CREDITS.map(c => (
-              <a
-                key={c.nameKey}
-                href={c.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow"
-              >
-                <div className="card-body p-3">
-                  <div className="font-semibold text-sm text-base-content leading-tight">{c.nameKey}</div>
-                  <div className="text-2xs text-base-content/50">{t(c.roleKey)}</div>
-                </div>
-              </a>
-            ))}
-          </div>
-          <p className="text-2xs text-base-content/30 mt-4">
-            {t('settings.legalNotice')}
-          </p>
+          <a
+            href="https://gaspard4i.github.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card bg-base-100 border border-base-300 hover:shadow-md transition-shadow inline-block"
+          >
+            <div className="card-body p-3">
+              <div className="font-semibold text-sm text-base-content leading-tight">Gaspard Catry</div>
+              <div className="text-2xs text-base-content/50">gaspard4i.github.io</div>
+            </div>
+          </a>
         </div>
       </div>
     </div>

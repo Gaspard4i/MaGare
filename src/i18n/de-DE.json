@@ -3,7 +3,7 @@
     "timetables": "Fahrpläne",
     "bulletin": "Bulletin",
     "favorites": "Favoriten",
-    "settings": "Einstellungen"
+    "settings": "Über"
   },
   "board": {
     "departures": "Abfahrten",
@@ -79,8 +79,8 @@
     "openHint": "Leitet zur offiziellen TER SNCF-Website mit Ihrer vorab ausgefüllten Fahrt weiter"
   },
   "settings": {
-    "title": "Einstellungen",
-    "subtitle": "Passen Sie die Anwendung an",
+    "title": "Über",
+    "subtitle": "Einstellungen und Informationen",
     "darkTheme": "Dunkles Thema",
     "darkThemeHint": "Schwarzer Hintergrund, ideal bei schwachem Licht",
     "about": "Über",

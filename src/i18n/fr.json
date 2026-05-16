@@ -3,7 +3,7 @@
     "timetables": "Horaires",
     "bulletin": "Bulletin",
     "favorites": "Favoris",
-    "settings": "Reglages"
+    "settings": "A propos"
   },
   "board": {
     "departures": "Departs",
@@ -79,8 +79,8 @@
     "openHint": "Redirige vers le site officiel TER SNCF avec votre trajet pre-rempli"
   },
   "settings": {
-    "title": "Reglages",
-    "subtitle": "Personnalisez l'application",
+    "title": "A propos",
+    "subtitle": "Preferences et informations",
     "darkTheme": "Theme sombre",
     "darkThemeHint": "Fond noir, ideal en faible luminosite",
     "about": "A propos",

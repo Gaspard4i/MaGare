@@ -120,12 +120,17 @@ export const toggleDestFavorite = (stationId: string, destId: string, place?: Pl
 
 // ── Theme ─────────────────────────────────────────────────────────────────────
 
-export const getTheme = (): 'sncf' | 'sncf-dark' => {
-  try { return (localStorage.getItem(K.THEME) as any) || 'sncf' }
-  catch { return 'sncf' }
+export const getTheme = (): 'app-sncf' | 'app-sncf-dark' => {
+  try {
+    const v = localStorage.getItem(K.THEME)
+    if (v === 'app-sncf' || v === 'app-sncf-dark') return v
+    if (v === 'sncf') return 'app-sncf'
+    if (v === 'sncf-dark') return 'app-sncf-dark'
+    return 'app-sncf'
+  } catch { return 'app-sncf' }
 }
 
-export const setTheme = (t: 'sncf' | 'sncf-dark'): void => {
+export const setTheme = (t: 'app-sncf' | 'app-sncf-dark'): void => {
   localStorage.setItem(K.THEME, t)
   document.documentElement.setAttribute('data-theme', t)
 }

@@ -3,7 +3,7 @@
     "timetables": "时刻表",
     "bulletin": "公告",
     "favorites": "收藏夹",
-    "settings": "设置"
+    "settings": "关于"
   },
   "board": {
     "departures": "出发",
@@ -79,8 +79,8 @@
     "openHint": "重定向到TER SNCF官方网站，并预填您的行程"
   },
   "settings": {
-    "title": "设置",
-    "subtitle": "自定义应用程序",
+    "title": "关于",
+    "subtitle": "偏好设置和信息",
     "darkTheme": "深色主题",
     "darkThemeHint": "黑色背景，非常适合弱光环境",
     "about": "关于",

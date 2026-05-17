@@ -3,9 +3,7 @@
     "timetables": "Orari",
     "bulletin": "Bollettino",
     "favorites": "Preferiti",
-    "settings": "Informazioni",
-    "primary": "Navigazione principale",
-    "home": "Home"
+    "settings": "Impostazioni"
   },
   "board": {
     "departures": "Partenze",
@@ -81,17 +79,31 @@
     "openHint": "Reindirizza al sito ufficiale TER SNCF con il tuo viaggio precompilato"
   },
   "settings": {
-    "title": "Informazioni",
-    "subtitle": "Preferenze e informazioni",
+    "title": "Impostazioni",
+    "subtitle": "Personalizza l'applicazione",
+    "darkTheme": "Tema scuro",
+    "darkThemeHint": "Sfondo nero, ideale in condizioni di scarsa illuminazione",
     "about": "Informazioni",
-    "preferences": "Preferenze",
-    "localData": "Dati locali",
-    "author": "Autore",
     "version": "Versione",
     "data": "Dati",
     "license": "Licenza",
     "clearData": "Cancella preferiti e dati locali",
-    "clearDataConfirm": "Cancellare preferiti e stazione predefinita? L'operazione non può essere annullata."
+    "credits": "Crediti e licenze",
+    "legalNotice": "Questo progetto è distribuito sotto licenza MIT. I dati ferroviari sono forniti dall'API SNCF (Navitia). I marchi citati appartengono ai rispettivi proprietari."
+  },
+  "credits": {
+    "developer": "Sviluppatore",
+    "aiAssistant": "Assistente IA",
+    "realtimeData": "Dati in tempo reale",
+    "uiLibrary": "Libreria UI",
+    "bundler": "Bundler / server di sviluppo",
+    "cssFramework": "Framework CSS",
+    "uiComponents": "Componenti UI / temi",
+    "icons": "Icone",
+    "routing": "Routing SPA",
+    "typing": "Tipizzazione statica",
+    "compression": "Compressione URL",
+    "hosting": "Hosting"
   },
   "time": {
     "from": "Da"

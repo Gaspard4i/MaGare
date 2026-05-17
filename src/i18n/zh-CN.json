@@ -3,9 +3,7 @@
     "timetables": "时刻表",
     "bulletin": "公告",
     "favorites": "收藏夹",
-    "settings": "关于",
-    "primary": "主导航",
-    "home": "首页"
+    "settings": "设置"
   },
   "board": {
     "departures": "出发",
@@ -81,17 +79,31 @@
     "openHint": "重定向到TER SNCF官方网站，并预填您的行程"
   },
   "settings": {
-    "title": "关于",
-    "subtitle": "偏好设置和信息",
+    "title": "设置",
+    "subtitle": "自定义应用程序",
+    "darkTheme": "深色主题",
+    "darkThemeHint": "黑色背景，非常适合弱光环境",
     "about": "关于",
-    "preferences": "偏好设置",
-    "localData": "本地数据",
-    "author": "作者",
     "version": "版本",
     "data": "数据",
     "license": "许可证",
     "clearData": "清除收藏夹和本地数据",
-    "clearDataConfirm": "清除收藏夹和默认车站？此操作无法撤销。"
+    "credits": "致谢和许可证",
+    "legalNotice": "本项目根据MIT许可证分发。铁路数据由SNCF（Navitia）API提供。引用的商标属于其各自所有者。"
+  },
+  "credits": {
+    "developer": "开发者",
+    "aiAssistant": "AI助手",
+    "realtimeData": "实时数据",
+    "uiLibrary": "UI库",
+    "bundler": "打包器/开发服务器",
+    "cssFramework": "CSS框架",
+    "uiComponents": "UI 组件 / 主题",
+    "icons": "图标",
+    "routing": "SPA 路由",
+    "typing": "静态类型",
+    "compression": "URL 压缩",
+    "hosting": "托管"
   },
   "time": {
     "from": "从"

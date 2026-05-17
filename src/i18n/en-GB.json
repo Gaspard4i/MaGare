@@ -3,9 +3,7 @@
     "timetables": "Timetables",
     "bulletin": "Bulletin",
     "favorites": "Favourites",
-    "settings": "About",
-    "primary": "Primary navigation",
-    "home": "Home"
+    "settings": "Settings"
   },
   "board": {
     "departures": "Departures",
@@ -81,17 +79,31 @@
     "openHint": "Redirects to the official TER SNCF website with your journey pre-filled"
   },
   "settings": {
-    "title": "About",
-    "subtitle": "Preferences and information",
+    "title": "Settings",
+    "subtitle": "Customise the app",
+    "darkTheme": "Dark theme",
+    "darkThemeHint": "Black background, ideal in low light",
     "about": "About",
-    "preferences": "Preferences",
-    "localData": "Local data",
-    "author": "Author",
     "version": "Version",
     "data": "Data",
     "license": "Licence",
     "clearData": "Clear favourites and local data",
-    "clearDataConfirm": "Clear your favourites and default station? This cannot be undone."
+    "credits": "Credits & licences",
+    "legalNotice": "This project is distributed under the MIT licence. Rail data is provided by the SNCF API (Navitia). The brands mentioned belong to their respective owners."
+  },
+  "credits": {
+    "developer": "Developer",
+    "aiAssistant": "AI Assistant",
+    "realtimeData": "Real-time data",
+    "uiLibrary": "UI Library",
+    "bundler": "Bundler / dev server",
+    "cssFramework": "CSS Framework",
+    "uiComponents": "UI Components / Themes",
+    "icons": "Icons",
+    "routing": "SPA Routing",
+    "typing": "Static Typing",
+    "compression": "URL Compression",
+    "hosting": "Hosting"
   },
   "time": {
     "from": "From"
